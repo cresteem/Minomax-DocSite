@@ -1,0 +1,10 @@
+{
+    "*": {
+        "theme": {
+            "breadcrumb": false
+        }
+    },
+    "index": {
+        "title": "Introduction"
+    }
+}
