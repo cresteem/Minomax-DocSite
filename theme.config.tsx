@@ -36,6 +36,9 @@ const config: DocsThemeConfig = {
   themeSwitch: {
     component: <ThemeSwitch />,
   },
+  sidebar: {
+    toggleButton: true,
+  },
 
   useNextSeoProps: () => {
     const { frontMatter } = useConfig();
