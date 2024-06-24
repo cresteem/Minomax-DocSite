@@ -10,7 +10,7 @@ export function Logo(): ReactElement {
   return (
     <div className={style.logoDiv}>
       <p className={style.heroText}>
-        <b>Hawk</b> JS
+        <b>Minomax</b>
       </p>
       <p className={style.subText}>
         By<b> CRESTEEM</b>
@@ -58,11 +58,11 @@ export function LicenseFooter(): ReactElement {
         <a
           property="dct:title"
           rel="cc:attributionURL"
-          href="https://github.com/cresteem/Hawk-JS"
+          href="https://github.com/cresteem/Minomax"
           target="_blank"
           style={{ fontWeight: "bold" }}
         >
-          Hawk JS
+          Minomax
         </a>{" "}
         powered by{" "}
         <a
@@ -76,7 +76,7 @@ export function LicenseFooter(): ReactElement {
         </a>{" "}
         is licensed under{" "}
         <a
-          href="https://github.com/cresteem/Hawk-JS/blob/main/LICENSE"
+          href="https://github.com/cresteem/Minomax/blob/main/LICENSE"
           target="_blank"
           rel="license noopener noreferrer"
           style={{ display: "inline-block" }}
@@ -99,7 +99,7 @@ export function CresteemLogo() {
   return (
     <div className={style.logoDiv}>
       <p className={style.heroText}>
-        <b>Hawk</b> JS
+        <b>Minomax</b>
       </p>
 
       {/*?xml version="1.0" encoding="UTF-8"?*/}
