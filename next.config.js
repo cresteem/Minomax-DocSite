@@ -4,17 +4,12 @@ const withNextra = require("nextra")({
   staticImage: true,
 });
 
-console.log(
-  "\n###################################################\n",
-  "Localhost: http://localhost:3000/opensource/minomax",
-  "\n####################################################\n"
-);
 module.exports = {
   ...withNextra(),
   images: {
     unoptimized: true,
   },
-  basePath: "/opensource/minomax",
+  basePath: "",
   output: "export",
-  distDir: "opensource/minomax",
+  distDir: "mimomax_op",
 };
