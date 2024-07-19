@@ -2,7 +2,7 @@
 import { useTheme } from "nextra-theme-docs";
 import { ReactElement, useState } from "react";
 
-import { RiOpenSourceFill, RiMoonFill, RiSunFill } from "react-icons/ri";
+import { RiMoonFill, RiOpenSourceFill, RiSunFill } from "react-icons/ri";
 
 import style from "../stylesheets/utils.module.scss";
 
@@ -88,7 +88,7 @@ export function LicenseFooter(): ReactElement {
       <p style={{ position: "absolute", right: "2vw" }}>
         Documentation M&D by{" "}
         <b>
-          <a href="https://www.linkedin.com/in/iamspdarsan">DARSAN</a>
+          <a href="https://darsan.in">DARSAN</a>
         </b>
       </p>
     </>

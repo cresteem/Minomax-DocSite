@@ -6,5 +6,29 @@
     },
     "index": {
         "title": "Introduction"
+    },
+    "getstart": {
+        "title": "Getting Started"
+    },
+    "config": {
+        "title": "Configurations"
+    },
+    "cli": {
+        "title": "CLI Reference"
+    },
+    "apiref": {
+        "title": "API Reference"
+    },
+    "demo": {
+        "title": "Demonstrations"
+    },
+    "faq": {
+        "title": "Frequently asked questions"
+    },
+    "video": {
+        "title": "Video tutorial"
+    },
+    "contrib": {
+        "title": "Contribution Guidelines"
     }
 }

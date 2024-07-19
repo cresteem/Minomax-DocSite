@@ -11,8 +11,8 @@ const config: DocsThemeConfig = {
   },
 
   banner: {
-    key: "0",
-    text: "WIP",
+    key: "0.1.0",
+    text: "Minomax 0.1.0 released 🚀",
     dismissible: true,
   },
 
