@@ -22,14 +22,17 @@
 	},
 	"homepage": "https://cresteem.com/opensource/minomax",
 	"devDependencies": {
-		"typescript": "latest",
-		"react": "latest",
-		"react-dom": "latest",
+		"@types/node": "latest",
 		"next": "latest",
 		"nextra": "latest",
 		"nextra-theme-docs": "latest",
+		"react": "latest",
+		"react-dom": "latest",
 		"react-icons": "^5.2.0",
 		"sass": "latest",
-		"@types/node": "latest"
+		"typescript": "latest"
+	},
+	"dependencies": {
+		"favicons": "^7.2.0"
 	}
 }
