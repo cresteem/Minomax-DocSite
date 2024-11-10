@@ -1,38 +1,39 @@
 {
-	"name": "minomax-docsite",
-	"version": "0.2b",
-	"description": "Minomax API References",
-	"scripts": {
-		"dev": "next dev",
-		"build": "next build",
-		"start": "next start"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/cresteem/Minomax-DocSite.git"
-	},
-	"author": "CRESTEEM <connect@cresteem.com>",
-	"maintainers": [
-		"CRESTEEM <connect@cresteem.com>",
-		"DARSAN <darsan@cresteem.com>"
-	],
-	"license": "GPL-3.0-only",
-	"bugs": {
-		"url": "https://github.com/cresteem/Minomax-DocSite/issues"
-	},
-	"homepage": "https://cresteem.com/opensource/minomax",
-	"devDependencies": {
-		"@types/node": "latest",
-		"next": "latest",
-		"nextra": "latest",
-		"nextra-theme-docs": "latest",
-		"react": "latest",
-		"react-dom": "latest",
-		"react-icons": "^5.2.0",
-		"sass": "latest",
-		"typescript": "latest"
-	},
-	"dependencies": {
-		"favicons": "^7.2.0"
-	}
+  "name": "minomax-docsite",
+  "version": "0.2b",
+  "description": "Minomax API References",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cresteem/Minomax-DocSite.git"
+  },
+  "author": "CRESTEEM <connect@cresteem.com>",
+  "maintainers": [
+    "CRESTEEM <connect@cresteem.com>",
+    "DARSAN <darsan@cresteem.com>"
+  ],
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/cresteem/Minomax-DocSite/issues"
+  },
+  "homepage": "https://minomax.cresteem.com/",
+  "devDependencies": {
+    "@types/node": "latest",
+    "next": "latest",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-icons": "^5.2.0",
+    "sass": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "favicons": "^7.2.0"
+  },
+  "keywords": []
 }
