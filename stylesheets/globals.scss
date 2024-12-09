@@ -1,0 +1,44 @@
+@use "./utils.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.nextra-banner-container {
+    @apply bg-primary;
+}
+
+a.bl {
+    @apply underline text-primary;
+}
+
+/* table props */
+th {
+    @apply text-lg;
+}
+td {
+    @apply border border-gray-300 px-4 py-2;
+}
+
+td:nth-child(3) > span {
+    @apply font-semibold text-primary;
+}
+
+td:nth-child(2) > span {
+    @apply font-normal text-red-500;
+}
+
+td:nth-child(1) {
+    @apply font-bold text-primary;
+}
+
+#compare td:nth-child(3):before {
+    content: "✅";
+    @apply pr-2;
+}
+
+#compare td:nth-child(2):before {
+    content: "❌";
+    @apply pr-2;
+}
+/*  */

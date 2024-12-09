@@ -1,0 +1,29 @@
+.keywords {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+        border-radius: 3ch;
+        @apply px-3 py-1;
+        margin-top: 1ch;
+        margin-left: 1.5ch;
+        border: rgba(0, 0, 0, 0.08) solid 1.8px;
+        color: black;
+
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+    }
+}
+
+/* :is(html[class~="dark"]) {
+    .keywords > li {
+        border-color: rgba(255, 255, 255, 0.15);
+        color: white;
+    }
+
+    .keywords > li:hover {
+        background-color: rgba(255, 255, 255, 0.12);
+    }
+}
+ */
