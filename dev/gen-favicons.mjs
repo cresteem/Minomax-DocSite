@@ -2,16 +2,16 @@ import { favicons } from "favicons";
 import { mkdirSync, writeFileSync } from "fs";
 import { basename, join } from "path";
 
-export async function generateFavicons(
+export async function generateFavicons({
   metaDesc,
   version,
-  baseImage = "fav.png",
+  baseImage = "dev/fav.png",
   appName = basename(process.cwd()),
   basepath = join(process.cwd(), "public"),
   faviconsPath = "favicons",
   devName = "Darsan",
-  devWebsite = "https://darsan.in"
-) {
+  devWebsite = "https://darsan.in",
+}) {
   const options = {
     path: faviconsPath,
 
@@ -73,7 +73,9 @@ export async function generateFavicons(
   }
 }
 
-generateFavicons(
-  "Minomax: Compress, Optimize, and Enhance Your Web Projects. With Minomax, achieve optimal web performance. This utility excels in compressing images, videos, and web documents, resulting in enhanced site speed, improved SEO, and a superior user experience.",
-  "0.1.0"
-);
+generateFavicons({
+  metaDesc:
+    "Minomax: Compress, Optimize, and Enhance Your Web Projects. With Minomax, achieve optimal web performance. This utility excels in compressing images, videos, and web documents, resulting in enhanced site speed, improved SEO, and a superior user experience.",
+  version: "1.0.0",
+  appName: "Minomax Documentation",
+});
