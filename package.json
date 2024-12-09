@@ -11,7 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/cresteem/Minomax-DocSite.git"
   },
-  "author": "CRESTEEM <connect@cresteem.com>",
+  "author": "DARSAN <darsan@cresteem.com>",
   "maintainers": [
     "CRESTEEM <connect@cresteem.com>",
     "DARSAN <darsan@cresteem.com>"
@@ -22,18 +22,18 @@
   },
   "homepage": "https://minomax.cresteem.com/",
   "devDependencies": {
-    "@types/node": "latest",
-    "next": "latest",
-    "nextra": "latest",
-    "nextra-theme-docs": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-icons": "^5.2.0",
-    "sass": "latest",
-    "typescript": "latest"
-  },
-  "dependencies": {
-    "favicons": "^7.2.0"
+    "@types/node": "22.10.1",
+    "@types/react": "^19.0.1",
+    "acorn": "^8.14.0",
+    "favicons": "^7.2.0",
+    "next": "15.0.4",
+    "nextra": "3.2.4",
+    "nextra-theme-docs": "3.2.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-icons": "^5.4.0",
+    "sass": "1.82.0",
+    "typescript": "5.7.2"
   },
   "keywords": []
 }
