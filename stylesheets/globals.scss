@@ -42,3 +42,7 @@ td:nth-child(1) {
     @apply pr-2;
 }
 /*  */
+
+a.link{
+    @apply font-medium underline text-primary;
+}

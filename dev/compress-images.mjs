@@ -28,7 +28,7 @@ class Compress {
     // compress all svg
     minomax
       .compressImages({
-        lookUpPatterns: "public/**/*png",
+        lookUpPatterns: ["public/**/*png", "public/**/*jpg"],
         targetFormat: "webp",
         destinationBasePath: "compressed",
       })
