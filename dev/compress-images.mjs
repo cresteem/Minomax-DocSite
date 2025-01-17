@@ -1,35 +1,39 @@
-import { compressImages } from "@cresteem/minomax";
+import { Minomax } from "@cresteem/minomax";
+const minomax = new Minomax();
 
 class Compress {
   favicons() {
     // compress favicons
-    compressImages("public/favicons/*png", "webp", "compressed").catch(
-      console.error
-    );
+    minomax
+      .compressImages({
+        lookUpPatterns: "public/favicons/*png",
+        targetFormat: "webp",
+        destinationBasePath: "compressed",
+      })
+      .catch(console.error);
   }
 
   svg() {
     // compress all svg
-    compressImages("public/**/*svg", "svg", "compressed").catch(console.error);
+    minomax
+      .compressImages({
+        lookUpPatterns: "public/**/*svg",
+        targetFormat: "svg",
+        destinationBasePath: "compressed",
+      })
+      .catch(console.error);
   }
 
-  serviceImages() {
-    // compress service visuals
-    compressImages(
-      "public/services-visuals/**/*{jpg,webp}",
-      "avif",
-      "compressed"
-    ).catch(console.error);
-  }
-
-  brandAssets() {
-    // compress brand-assets non-svg
-    compressImages(
-      "public/brand-assets/*{png,webp}",
-      "webp",
-      "compressed"
-    ).catch(console.error);
+  public() {
+    // compress all svg
+    minomax
+      .compressImages({
+        lookUpPatterns: "public/**/*png",
+        targetFormat: "webp",
+        destinationBasePath: "compressed",
+      })
+      .catch(console.error);
   }
 }
 
-new Compress().favicons();
+new Compress().public();

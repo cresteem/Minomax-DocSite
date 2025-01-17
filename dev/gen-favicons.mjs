@@ -75,7 +75,7 @@ export async function generateFavicons({
 
 generateFavicons({
   metaDesc:
-    "Minomax: Compress, Optimize, and Enhance Your Web Projects. With Minomax, achieve optimal web performance. This utility excels in compressing images, videos, and web documents, resulting in enhanced site speed, improved SEO, and a superior user experience.",
+    "Minomax provides comprehensive web optimization solutions to enhance your website's performance. With advanced image, video, and web document compression, responsive design optimization, and cloud integration, Minomax helps you achieve faster load times and a seamless user experience across all platforms.",
   version: "1.0.0",
   appName: "Minomax Documentation",
 });

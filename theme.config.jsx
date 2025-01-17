@@ -12,10 +12,10 @@ const config = {
     component: <Footer />,
   },
   themeSwitch: { component: false },
-  backgroundColor: { dark: "#000", light: "#fff" },
-  color: { hue: 162, saturation: 60, lightness: 50 },
+  backgroundColor: { dark: "#fff", light: "#fff" },
+  color: { hue: 19.3, saturation: 88.9, lightness: 54.1 },
   banner: {
-    key: "100",
+    key: "1.0.0",
     content: <Banner />,
     dismissible: false,
   },
