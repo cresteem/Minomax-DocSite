@@ -36,4 +36,15 @@ class Compress {
   }
 }
 
-new Compress().public();
+const compress = new Compress();
+const args = process.argv.slice(2);
+
+if (args.includes("favicons")) {
+  compress.favicons();
+} else if (args.includes("svg")) {
+  compress.svg();
+} else if (args.includes("public")) {
+  compress.public();
+} else {
+  console.error("Please provide a valid argument: favicons, svg, or public");
+}

@@ -5,7 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cfav": "node dev/compress-images.mjs favicons",
+    "cpub": "node dev/compress-images.mjs public",
+    "csvg": "node dev/compress-images.mjs svg"
   },
   "repository": {
     "type": "git",
