@@ -23,6 +23,8 @@
   "homepage": "https://minomax.cresteem.com/",
   "devDependencies": {
     "@cresteem/minomax": "^1.0.0",
+    "@mantine/core": "^7.16.0",
+    "@mantine/hooks": "^7.16.0",
     "@types/node": "22.10.7",
     "@types/react": "^19.0.7",
     "acorn": "^8.14.0",

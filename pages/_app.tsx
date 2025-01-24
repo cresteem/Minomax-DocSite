@@ -1,5 +1,5 @@
+import "@mantine/core/styles.css";
 import "../stylesheets/globals.scss";
-
 export default function App({
   Component,
   pageProps,

@@ -5,8 +5,8 @@ export default () => {
       target="_blank"
       className="tracking-widest font-normal"
     >
-      Minomax 1.0.0 released 🚀{" "}
-      <span className="underline text-deep">Explore</span>
+      Minomax 1.0.1 released 🚀{" "}
+      <span className="underline font-bold">Explore</span>
     </a>
   );
 };

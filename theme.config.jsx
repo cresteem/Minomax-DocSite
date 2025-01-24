@@ -15,7 +15,7 @@ const config = {
   backgroundColor: { dark: "#fff", light: "#fff" },
   color: { hue: 19.3, saturation: 88.9, lightness: 54.1 },
   banner: {
-    key: "1.0.0",
+    key: "1.0.1",
     content: <Banner />,
     dismissible: false,
   },

@@ -1,4 +1,5 @@
 @use "./utils.scss";
+@use "./snake.scss";
 
 @tailwind base;
 @tailwind components;
@@ -45,4 +46,14 @@ td:nth-child(1) {
 
 a.link{
     @apply font-medium underline text-primary;
+}
+
+/* Hide scrollbar for all browsers */
+* {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
 }

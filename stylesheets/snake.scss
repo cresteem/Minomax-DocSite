@@ -1,0 +1,78 @@
+#snake {
+    height: 15em;
+    right: 0%;
+    top: 10%;
+    margin-top: 3.3rem;
+    padding: 3em;
+    position: absolute;
+    width: 15em;
+    -webkit-transform: rotateX(45deg) rotateZ(45deg);
+    -webkit-transform-style: preserve-3d;
+  }
+  
+  .cell,
+  .cell:after,
+  .cell:before {
+    box-shadow: inset 0 0 0 0.25em rgba(0, 0, 0, 0.1);
+    content: "";
+    float: left;
+    height: 3em;
+    position: absolute;
+    width: 3em;
+  }
+  
+  /* Top */
+  .cell {
+    background-color: #f66;
+    position: relative;
+    -webkit-transform: translateZ(3em);
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 0.25s;
+  }
+  
+  /* Left */
+  .cell:after {
+    background-color: #e55;
+    -webkit-transform: rotateX(-90deg) translateY(3em);
+    -webkit-transform-origin: 100% 100%;
+  }
+  
+  /* Right */
+  .cell:before {
+    background-color: #d44;
+    -webkit-transform: rotateY(90deg) translateX(3em);
+    -webkit-transform-origin: 100% 0;
+  }
+  
+  /* Alternate Colour */
+  .cell:nth-child(even) {
+    background-color: #fc6;
+  }
+  
+  .cell:nth-child(even):after {
+    background-color: #eb5;
+  }
+  
+  .cell:nth-child(even):before {
+    background-color: #da4;
+  }
+  
+  /* Animation */
+  @keyframes wave {
+    0% {
+      -webkit-transform: translateZ(3em);
+    }
+    50% {
+      -webkit-transform: translateZ(12.5em);
+    }
+    100% {
+      -webkit-transform: translateZ(3em);
+    }
+  }
+/* Loop to assign animation delays, and vertical position individually */
+@for $i from 1 through 90 {
+    .cell:nth-child(#{$i}) {
+        -webkit-transform: rotateY($i * 4deg);
+        -webkit-animation: wave 1.8s ($i * 0.05s) ease-in-out infinite;
+    }
+}
