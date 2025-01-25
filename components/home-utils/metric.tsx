@@ -7,18 +7,22 @@ const metrics: {
   color: string;
   text: string | ReactElement;
 }[] = [
-  { percent: 97, color: "#f26522", text: "Image compression with AVIF" },
+  {
+    percent: 97,
+    color: "#f26522",
+    text: "Achieve impressive image compression with AVIF, WEBP, and JPEG formats, maintaining above 90% SSIM with minimal quality differences.",
+  },
   {
     percent: 93,
     color: "#f2974e",
-    text: "Video compression with AV1 with WEBM/MP4",
+    text: "AV1 video compression in WEBM/MP4 containers, offering significant size reduction efficiently.",
   },
   {
     percent: 25,
     color: "#f2b37a",
     text: (
       <>
-        Web Docs Minification with best available tools such as{" "}
+        Optimized with top configurations using tools like{" "}
         <a href="https://lightningcss.dev/" target="_blank" className="link">
           lightningcss
         </a>
@@ -34,6 +38,7 @@ const metrics: {
         >
           html-minifier
         </a>
+        , cutting file sizes by approximately 25% even before Gzip or Brotli.
       </>
     ),
   },

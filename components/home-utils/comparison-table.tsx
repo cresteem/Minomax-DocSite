@@ -54,8 +54,8 @@ export default function ComparisonTable() {
                   compromise quality.
                 </td>
                 <td>
-                  <span>High</span> - Achieves up to 96% image, 93% video, and
-                  26% web document compression while almost preserving quality.
+                  <span>High</span> - Achieves up to 97% image, 93% video, and
+                  25% web document compression while almost preserving quality.
                 </td>
               </tr>
               <tr>
@@ -66,7 +66,9 @@ export default function ComparisonTable() {
                 </td>
                 <td>
                   <span>Comprehensive</span> - Automates image, video, and web
-                  document compression, SEO, and deployment.
+                  document compression, generates image sets, and leverages the
+                  modern &lt;picture&gt; tag with media queries for responsive
+                  design.
                 </td>
               </tr>
               <tr className="bg-gray-50">
@@ -77,7 +79,8 @@ export default function ComparisonTable() {
                 </td>
                 <td>
                   <span>Effortless</span> - Automatically generates responsive
-                  image sets and video thumbnails.
+                  image sets with device-specific resolutions to reduce traffic,
+                  along with video thumbnails for better accessibility.
                 </td>
               </tr>
               <tr>

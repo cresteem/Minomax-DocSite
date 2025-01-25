@@ -12,17 +12,17 @@ export default function Features() {
     {
       icon: <FaImage />,
       title: "Image Compression",
-      desc: "Compress your images in popular formats like JPEG, PNG, WebP, and AVIF with up to 96% reduction in file size, while retaining full visual quality. This significant compression leads to faster load times and a more seamless user experience across all devices.",
+      desc: "Compress your images in popular input formats like JPEG, WebP, and PNG, and produce optimized outputs in JPG, WebP, and AVIF formats with up to 96% reduction in file size. Enjoy faster load times and a seamless user experience across all devices while preserving exceptional visual quality.",
     },
     {
       icon: <FaVideo />,
       title: "Video Compression",
-      desc: "Compress your videos with up to 93% file size reduction, supporting output formats such as WebM with AV1, MP4 (with AV1 or x265 encoding) for modern web optimization. NVIDIA acceleration further boosts processing speed, ensuring smooth performance on any device.",
+      desc: "Compress your videos with up to 93% file size reduction, supporting output formats such as WebM with AV1, MP4 with AV1 or x265 encoding for modern web optimization. NVIDIA acceleration further boosts processing speed, ensuring smooth performance on any device.",
     },
     {
       icon: <FaCompress />,
       title: "Web Document Minification",
-      desc: "Minify your web documents (CSS, HTML, and JavaScript) to reduce file sizes by up to 70%, increasing performance and ensuring lightning-fast browsing experiences.",
+      desc: "Minify your web documents (CSS, HTML, and JavaScript) to reduce file sizes by up to 50%, increasing performance and ensuring lightning-fast browsing experiences.",
     },
     {
       icon: <FaMobileAlt />,
