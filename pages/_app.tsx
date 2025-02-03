@@ -1,5 +1,7 @@
+import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
 import "../stylesheets/globals.scss";
+
 export default function App({
   Component,
   pageProps,
@@ -7,5 +9,9 @@ export default function App({
   Component: any;
   pageProps: Record<any, any>;
 }) {
-  return <Component {...pageProps} />;
+  return (
+    <MantineProvider>
+      <Component {...pageProps} />;
+    </MantineProvider>
+  );
 }

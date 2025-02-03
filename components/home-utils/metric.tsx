@@ -1,12 +1,14 @@
 import { RingProgress, Text } from "@mantine/core";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useRef, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 
-const metrics: {
+type Metric = {
   percent: number;
   color: string;
   text: string | ReactElement;
-}[] = [
+}[];
+
+const metrics: Metric = [
   {
     percent: 97,
     color: "#f26522",
@@ -45,6 +47,39 @@ const metrics: {
 ];
 
 export default function Metric() {
+  const [currentStats, setStats] = useState<Metric>(
+    metrics.map((metric) => {
+      return { ...metric, percent: 0 };
+    })
+  );
+
+  const statContainerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setStats(metrics);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.95 }
+    );
+
+    if (statContainerRef.current) {
+      observer.observe(statContainerRef.current);
+    }
+
+    return () => {
+      if (statContainerRef.current) {
+        observer.unobserve(statContainerRef.current);
+      }
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <section className="flex-col flex">
       <h2 className="mx-auto font-bold text-4xl py-5 my-5">
@@ -53,10 +88,14 @@ export default function Metric() {
         </span>{" "}
         See Minomax in Action
       </h2>
-      <div className="flex flex-wrap justify-start items-center max-w-screen-lg mx-auto gap-y-10 py-10">
-        {metrics.map((metric, idx) => (
+      <div
+        ref={statContainerRef}
+        className="flex flex-wrap justify-start items-center max-w-screen-lg mx-auto gap-y-10 py-10"
+      >
+        {currentStats.map((metric, idx) => (
           <div className="flex justify-start items-center w-[50%]" key={idx}>
             <RingProgress
+              transitionDuration={2000}
               sections={[{ value: metric.percent, color: metric.color }]}
               label={
                 <Text c={metric.color} fw={700} ta="center" size="xl">

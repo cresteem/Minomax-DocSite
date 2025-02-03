@@ -1,0 +1,67 @@
+---
+title: Video Worker Configuration
+description: "This section explains how to configure the video worker in Minomax, including the available codec types and encoding levels. Fine-tune these settings to optimize your videos for quality, file size, and encoding speed."
+thumbnailUrl: /images/ogcover.webp
+---
+
+# **Video Worker Configuration**
+
+Minomax allows users to configure the **video worker** to control the codec type and encoding level for video optimization. You can choose between different container and codec combinations to suit your needs. Adjust these settings to achieve the desired balance between video quality, file size, and encoding speed.
+
+## **1. Codec Type (`codecType`)**
+
+The **codec type** specifies the video container and codec used for encoding. Minomax supports the following combinations:
+
+- **`"wav1"`**: A WebM container with the AV1 encoder. This combination provides high-quality compression with great efficiency, suitable for modern web-based video applications.
+- **`"mav1"`**: An MP4 container with the AV1 encoder. Offers a good balance of quality and compression, compatible with a wide range of platforms.
+- **`"mx265"`**: An MP4 container with the x265 codec. A widely-used codec known for high-quality video at lower bitrates, commonly used in streaming and media production.
+
+#### **Example**:
+
+```js
+codecType: "mx265",  // Select the codec type for video encoding ("wav1", "mav1", "mx265")
+```
+
+## **2. Encoding Level (`encodeLevel`)**
+
+The **encoding level** adjusts the **compression ratio** and **quality** of the video:
+
+- **Lower Levels**: These prioritize **quality over compression**, meaning the video retains most of its original detail. This results in **larger file sizes** but better visual fidelity.
+- **Higher Levels**: These focus on **higher compression** and **smaller file sizes**. While this results in **lower quality**, the drop-off is not always drastic. Depending on the video content, a higher encoding level may still provide a **satisfactory balance** between quality and size.
+
+Here’s how the levels break down:
+
+- **`1`**: Highest quality, smallest compression (larger file size).
+- **`2`**: Balanced compression and quality (optimal for most cases).
+- **`3`**: High compression, smaller file size (may show visible quality loss, but often still acceptable).
+
+#### **Example**:
+
+```js
+encodeLevel: 2,  // Set the encoding level (1 for best quality, 3 for best compression)
+```
+
+## **Full Configuration Example**
+
+To configure the video worker, use the following settings in your Minomax configuration file:
+
+```js
+const videoConfig = {
+  videoWorker: {
+   encoding:{ codecType: "mx265", // Choose codec type ("wav1", "mav1", or "mx265")
+    encodeLevel: 2, // Set encoding level (1, 2, or 3)}
+  },
+};
+```
+
+---
+
+## **Considerations**
+
+- **Codec Selection**: Choose a codec that fits your needs:
+
+  - **`"mx265"`** (MP4 with x265 codec) offers high efficiency for high-quality video at lower bitrates.
+  - **`"wav1"`** (WebM with AV1) is great for web applications, offering excellent compression efficiency.
+  - **`"mav1"`** (MP4 with AV1) provides a great balance of quality and compression for general use cases.
+
+- **Encoding Speed**: Higher encoding levels provide better quality but take more processing time. If you’re working with large video files, the encoding time may increase with higher levels.

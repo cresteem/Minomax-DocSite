@@ -1,162 +1,150 @@
 ---
 title: "Minomax CLI Reference: Your Guide to Web Optimization"
 description: "Get to know the Minomax CLI, offering a variety of commands to customize your web optimization process. Learn how to compress images, videos, minify documents, and generate image sets efficiently."
-thumbnailUrl: /ogcover.png 
+thumbnailUrl: /images/ogcover.webp
 ---
 
-# Minomax CLI Reference
+# **Minomax CLI Reference**
 
----
+Minomax CLI provides several commands to optimize, compress, and configure web assets like images, videos, and web documents. The CLI leverages a flexible structure, allowing users to easily integrate it into their workflows.
 
-This guide provides detailed information on how to use the Minomax command-line interface to optimize your web projects. The CLI offers a variety of commands and options to customize the optimization process.
+## **Commands**
 
----
-## Commands
-- **make**: Runs the complete image generation and compression workflow.
-- **image**: Compresses images only.
-- **video**: Compresses videos only.
-- **minify**: Compresses web documents, including HTML, CSS, and JS.
-- **genset**: Generates dynamic image sets and transforms `<img>` tags to `<picture>` for improved responsiveness.
+### **1. `prod` - Run the Minomax Process**
 
----
-
-## General Usage
-
-The Minomax CLI provides several commands to optimize images, videos, web documents, and generate image sets. Each command can be customized with various options.
-
-```bash
-minomax <command> [options]
-```
-
----
-
-## Commands in action
-
-### make
-
-Run the entire Minomax process, including image compression, video compression, web document minification, and image set generation.
-
-```bash
-minomax make [options]
-```
+This is master command triggers the Minomax optimization process for images, videos and webdocs, also perfoms image set generation and thumbnail linking.
 
 **Options:**
 
-- `-f, --format [jpg | avif | webp]`: Image output format (default: `webp`)
-- `-c, --codec [wav1 | mav1 | mx265]`: Output video codec type (default: `wav1`)
-- `-e, --encode [1 | 2 | 3]`: Video encoding level (default: `3`)
-- `-d, --dest <path>`: Destination base path (default: `./dt`)
-- `-i, --ignore <patterns>`: Ignore path patterns (comma-separated list)
+- **`-f, --format [jpg | avif | webp | svg]`**  
+  Specifies the output format for images. Default is `webp`.
+- **`-c, --codec [wav1 | mav1 | mx265]`**  
+  Defines the video codec. Default is `wav1`.
+- **`-e, --encode [1 | 2 | 3]`**  
+  Sets the video encoding level (1 being low, 3 being high). Default is `3`.
+- **`-i, --ignore <patterns>`**  
+  Path patterns to ignore during processing.
 
-**Example:**
+**Example Usage:**
 
-```bash
-minomax make -f jpg -c mav1 -e 2 -d ./output -i node_modules,tests
+```bash copy
+npx minomax prod -f jpg -c wav1 -e 2 -i "node_modules"
 ```
 
-### image
+### **2. `image` - Compress Images**
 
-Compress images based on specified patterns and options.
-
-```bash
-minomax image [options]
-```
+This command compresses images into the specified format.
 
 **Options:**
 
-- `-p, --patterns <patterns>`: Path patterns (comma-separated list)
-- `-f, --format [jpg | avif | webp]`: Image output format (default: `webp`)
-- `-d, --dest <path>`: Destination base path (default: `./dt`)
-- `-i, --ignore <patterns>`: Ignore patterns (comma-separated list)
+- **`-p, --patterns <patterns>`**  
+  Path patterns to locate source image files.
+- **`-f, --format [jpg | avif | webp | svg]`**  
+  Specifies the image output format. Default is `webp`.
+- **`-d, --dest <path>`**  
+  The destination folder for the optimized images.
+- **`-i, --ignore <patterns>`**  
+  Path patterns to ignore during image compression.
 
-**Example:**
+**Example Usage:**
 
-```bash
-minomax image -p src/images/**/* -f avif -d ./compressed_images
+```bash copy
+npx minomax image -p "src/images/**/*.jpg" -f webp -d "./optimized_images"
 ```
 
-### video
+### **3. `video` - Compress Videos**
 
-Compress videos based on specified patterns and options.
-
-```bash
-minomax video [options]
-```
+This command compresses videos into the specified codec and encoding level.
 
 **Options:**
 
-- `-p, --patterns <patterns>`: Path patterns (comma-separated list)
-- `-c, --codec [wav1 | mav1 | mx265]`: Output video codec type (default: `wav1`)
-- `-e, --encode [1 | 2 | 3]`: Video encoding level (default: `3`)
-- `-d, --dest <path>`: Destination base path (default: `./dt`)
-- `-i, --ignore <patterns>`: Ignore patterns (comma-separated list)
+- **`-p, --patterns <patterns>`**  
+  Path patterns to locate source video files.
+- **`-c, --codec [wav1 | mav1 | mx265]`**  
+  Specifies the video codec. Default is `wav1`.
+- **`-e, --encode [1 | 2 | 3]`**  
+  Defines the video encoding level. Default is `3`.
+- **`-d, --dest <path>`**  
+  Destination folder for the compressed videos.
+- **`-i, --ignore <patterns>`**  
+  Path patterns to ignore during video compression.
 
-**Example:**
+**Example Usage:**
 
-```bash
-minomax video -p src/videos/**/* -c mx265 -e 1 -d ./compressed_videos
+```bash copy
+npx minomax video -p "src/videos/**/*.mp4" -c wav1 -e 2 -d "./optimized_videos"
 ```
 
-### minify
+### **4. `minify` - Minify Web Documents (JS, CSS, HTML)**
 
-Minify web documents such as JavaScript, CSS, and HTML files.
-
-```bash
-minomax minify [options]
-```
+This command minifies JavaScript, CSS, and HTML files.
 
 **Options:**
 
-- `-p, --patterns <patterns>`: Path patterns (comma-separated list)
-- `-d, --dest <path>`: Destination base path (default: `./dt`)
-- `-s, --searchBase <path>`: File search base path (default: `process.cwd()`)
-- `-i, --ignore <patterns>`: Ignore patterns (comma-separated list)
+- **`-p, --patterns <patterns>`**  
+  Path patterns to locate web document files.
+- **`-d, --dest <path>`**  
+  Destination folder for the minified files.
+- **`-s, --searchBase <path>`**  
+  Base directory for file search. Default is the current working directory.
+- **`-i, --ignore <patterns>`**  
+  Path patterns to ignore during file processing.
 
-**Example:**
+**Example Usage:**
 
-```bash
-minomax minify -p src/**/*.js,src/**/*.css -d ./minified
+```bash copy
+npx minomax minify -p "src/**/*.html" -d "./dist" -i "node_modules"
 ```
 
-### genset
+### **5. `genset` - Generate Image Sets**
 
-Generate image sets for different screen sizes.
-
-```bash
-minomax genset [options]
-```
+Generates optimized image sets for small to large devices and include them in html, automatically.
 
 **Options:**
 
-- `-p, --patterns <patterns>`: Path patterns of HTML files (comma-separated list)
-- `-d, --dest <path>`: Destination base path (default: `./dt`)
-- `-i, --ignore <patterns>`: Ignore patterns (comma-separated list)
+- **`-p, --patterns <patterns>`**  
+  Path patterns to locate the HTML files.
+- **`-d, --dest <path>`**  
+  Destination folder for the image sets.
+- **`-i, --ignore <patterns>`**  
+  Path patterns to ignore.
 
-**Example:**
+**Example Usage:**
 
-```bash
-minomax genset -p app/pages/**/*.html -d ./dist
+```bash copy
+npx minomax genset -p "src/**/*.html" -d "./responsive"
+```
+
+### **6. `init` - Initialize Configuration Template**
+
+Initializes a new configuration template for Minomax.
+
+**Example Usage:**
+
+```bash copy
+npx minomax init
 ```
 
 ---
 
-## Conclusion
+### **Additional Notes:**
 
-This CLI reference guide covers the essential commands and options for using Minomax. Thank you for choosing Minomax to optimize your web projects!
+- **Default Paths:**  
+  Most commands use the `destPath` from the Minomax configuration by default for output destinations unless overridden with the `-d` option.
+- **Configuration Initialization:**  
+  Running `minomax init` will create the necessary configuration files for the project, allowing users to customize their optimization parameters.
 
-import style from '../stylesheets/utils.module.scss'
-
-<br/>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
+<br />
 <strong>Keywords:</strong>
-<ul className={style.keywords}>
-    <li>Minomax CLI</li>
-    <li>Web optimization commands</li>
-    <li>Image compression</li>
-    <li>Video compression</li>
-    <li>Web document minification</li>
-    <li>Image set generation</li>
-    <li>Responsiveness</li>
+<ul className="keywords">
+  <li>Minomax CLI</li>
+  <li>Web optimization commands</li>
+  <li>Image compression</li>
+  <li>Video compression</li>
+  <li>Web document minification</li>
+  <li>Image set generation</li>
+  <li>Responsiveness</li>
 </ul>

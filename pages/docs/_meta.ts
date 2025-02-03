@@ -13,11 +13,12 @@ export default {
   "customizing-minomax-for-your-needs": {
     title: "Configurations",
   },
-  "minomax-cli-reference-guide": {
-    title: "CLI Reference",
-  },
+
   "minomax-api-reference-guide": {
     title: "API Reference",
+  },
+  "minomax-cli-reference-guide": {
+    title: "CLI Reference",
   },
   "minomax-in-action": {
     title: "Demonstrations",

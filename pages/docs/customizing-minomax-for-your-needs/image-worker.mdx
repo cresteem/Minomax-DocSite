@@ -1,0 +1,554 @@
+---
+title: "Image Worker Configuration in Minomax"
+description: "Learn how to configure image optimization settings in Minomax, including JPEG, WebP, AVIF, and SVG encoding options to enhance your web project's performance."
+thumbnailUrl: /images/ogcover.webp
+---
+
+# Image Worker Configuration
+
+The `imageWorker` section of the Minomax configuration file allows you to control the encoding settings for various image formats. It includes four key areas: **JPEG**, **WebP**, **AVIF**, and **SVG** optimizations. Below is a detailed explanation of each encoding type.
+
+---
+
+## 1. **JPEG Encoding Configuration (`jpgEncodeOptions`)**
+
+This section is used for optimizing **JPEG** images, which are widely used on the web. Minomax utilizes **MozJPEG** for efficient JPEG compression with fine-tuned quality settings.
+
+### **JPG Encoding with `mozjpeg` Options:**
+
+#### **1. quality**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Defines the quality of the output JPEG image. A value of `0` gives the lowest quality with the highest compression, while a value of `100` results in the highest quality with minimal compression. Typically, values between 60-80 offer a good balance of size and quality.
+
+#### **2. color_space**
+
+- **Type**: `number`
+- **Values**:
+  - `1`: Grayscale
+  - `2`: RGB
+  - `3`: YCbCr
+- **Description**: Determines the color space for encoding the image:
+  - **Grayscale (1)**: For black and white images.
+  - **RGB (2)**: Red, Green, Blue color channels, used for colorful images.
+  - **YCbCr (3)**: YCbCr is a color space commonly used in digital images and video compression, where "Y" represents brightness (luminance) and "Cb" and "Cr" represent chrominance (color information).
+
+#### **3. auto_subsample**
+
+- **Type**: `boolean`
+- **Description**: Specifies whether automatic chroma subsampling should be used. When enabled, it adjusts chroma subsampling to achieve better compression without noticeable quality degradation.
+
+#### **4. chroma_subsample**
+
+- **Type**: `number`
+- **Range**: `1 - 4`
+- **Description**: Defines the chroma subsampling ratio, which impacts the quality of color information in the image:
+  - **1**: No subsampling (full chroma resolution).
+  - **4**: Maximum subsampling (lowest chroma resolution).
+
+#### **5. progressive**
+
+- **Type**: `boolean`
+- **Description**: Enables progressive encoding. Progressive JPEGs load in multiple passes, starting with a low-quality image and progressively improving the quality as more data is loaded. This results in faster perceived loading times for users.
+
+#### **6. smoothing**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Controls the amount of smoothing applied to the image during compression. A higher value applies more smoothing, reducing blocky artifacts but potentially blurring fine details. A value of `0` means no smoothing.
+
+#### **7. quant_table**
+
+- **Type**: `number`
+- **Values**:
+  - `2`: MSSIM Kodak (Optimized for perceptual image quality).
+  - `3`: ImageMagick (Optimized for overall visual fidelity).
+  - `4`: PSNR Kodak (Optimized for quality based on Peak Signal to Noise Ratio).
+- **Description**: Specifies the quantization table to use for encoding, which influences the overall image compression. Different tables provide trade-offs between visual quality and file size.
+
+#### **8. trellis_multipass**
+
+- **Type**: `boolean`
+- **Description**: Enables the use of **Trellis Multipass Quantization**. This technique improves the efficiency of JPEG compression by applying an iterative process that optimizes the quantization tables during encoding.
+
+#### **9. trellis_opt_zero**
+
+- **Type**: `boolean`
+- **Description**: If enabled, it optimizes the run-length encoding of zero coefficients during compression. This can help in reducing file size without compromising image quality.
+
+#### **10. trellis_opt_table**
+
+- **Type**: `boolean`
+- **Description**: Activates further optimization of the quantization tables after performing the trellis multipass.
+
+#### **11. trellis_loops**
+
+- **Type**: `number`
+- **Range**: `1 - 50`
+- **Description**: Defines the number of passes for **Trellis Quantization**. The higher the number, the more iterations are used to optimize the encoding process, typically resulting in better image quality and smaller file sizes, but at the cost of increased processing time.
+
+#### **12. separate_chroma_quality**
+
+- **Type**: `boolean`
+- **Description**: When enabled, this option allows setting a separate quality level for chroma (color) information in the image. Typically used when the chroma information needs different optimization compared to luminance (brightness).
+
+#### **13. chroma_quality**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Specifies the quality of the chroma (color) channels when `separate_chroma_quality` is enabled. A higher value gives more importance to preserving color details, while lower values can reduce color fidelity in favor of smaller file sizes.
+
+---
+
+#### Example Configuration:
+
+```js
+jpgEncodeOptions: {
+    mozjpeg: {
+        quality: 60,
+        color_space: 3,
+        auto_subsample: false,
+        chroma_subsample: 4,
+        progressive: true,
+        smoothing: 0,
+        quant_table: 2,
+        trellis_multipass: true,
+        trellis_opt_zero: true,
+        trellis_opt_table: true,
+        trellis_loops: 50,
+        separate_chroma_quality: false,
+        chroma_quality: 75,
+    },
+}
+```
+
+---
+
+## 2. **WebP Encoding Configuration (`webpEncodeOptions`)**
+
+WebP is a modern image format developed by Google that provides superior compression for images on the web, offering both lossy and lossless compression. The **webpEncodeOptions** are used to customize the encoding process for WebP images. Here's a detailed breakdown of each property in the `webpEncodeOptions`:
+
+#### **1. method**
+
+- **Type**: `number`
+- **Range**: `0 - 6`
+- **Description**: Specifies the effort level for WebP compression. The higher the number, the more computational effort the encoder uses to optimize the image. Higher values result in better compression but also require more processing time:
+  - `0`: Fastest (lowest compression).
+  - `6`: Slowest (highest compression).
+
+#### **2. quality**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Determines the quality of the output WebP image. A higher value results in better quality and less compression, while a lower value reduces the image quality but results in a smaller file size. The recommended range is usually between 75-85 for good balance.
+
+#### **3. alpha_compression**
+
+- **Type**: `number`
+- **Values**: `0` or `1`
+- **Description**: Controls whether alpha channel (transparency) compression is enabled. When set to `1`, alpha compression is applied to reduce the file size of transparent regions.
+  - `0`: No alpha compression.
+  - `1`: Alpha compression enabled.
+
+#### **4. alpha_quality**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Specifies the quality of the alpha (transparency) channel in the WebP image. A higher value means better transparency quality, while a lower value will reduce transparency fidelity in exchange for smaller file sizes.
+
+#### **5. alpha_filtering**
+
+- **Type**: `number`
+- **Range**: `0 - 2`
+- **Description**: Sets the level of filtering applied to the alpha channel:
+  - `0`: No filtering.
+  - `1`: Simple filter.
+  - `2`: Stronger filtering.
+
+#### **6. autofilter**
+
+- **Type**: `number`
+- **Values**: `0` or `1`
+- **Description**: Enables or disables automatic adjustment of the filter used in encoding. If set to `1`, the encoder automatically selects the best filter based on the image characteristics.
+  - `0`: No autofilter.
+  - `1`: Autofilter enabled.
+
+#### **7. filter_strength**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Controls the strength of the filter when `autofilter` is set to `0`. A higher value applies stronger filtering, which can reduce artifacts but may also blur details.
+
+#### **8. filter_type**
+
+- **Type**: `number`
+- **Values**: `0` or `1`
+- **Description**: Specifies whether a strong filter should be applied to the image during encoding:
+  - `0`: No strong filter.
+  - `1`: Apply a strong filter to the image.
+
+#### **9. filter_sharpness**
+
+- **Type**: `number`
+- **Range**: `0 - 7`
+- **Description**: Defines the sharpness of the filter applied to the image. The higher the value, the sharper the filtered image, though this may introduce artifacts if set too high.
+
+#### **10. pass**
+
+- **Type**: `number`
+- **Range**: `1 - 10`
+- **Description**: Controls the number of passes to use during the encoding process. A higher number of passes improves compression and image quality, but also increases encoding time. Typical values are between 1-3 for faster results, while 10 can provide the best quality at the expense of time.
+
+#### **11. use_sharp_yuv**
+
+- **Type**: `number`
+- **Values**: `0` or `1`
+- **Description**: Enables or disables sharpness of the RGB-to-YUV conversion. Setting this to `1` applies a sharper transformation from RGB to YUV, which can enhance visual quality.
+  - `0`: No sharp YUV conversion.
+  - `1`: Apply sharp YUV conversion.
+
+#### **12. sns_strength**
+
+- **Type**: `number`
+- **Range**: `0 - 100`
+- **Description**: Adjusts the strength of **Spatial Noise Shaping (SNS)**, a technique used to reduce visual noise and improve image quality. Higher values will reduce noise more, but may also result in larger file sizes.
+
+#### **13. preprocessing**
+
+- **Type**: `number`
+- **Values**: `0`, `1`, or `2`
+- **Description**: Defines the preprocessing technique applied to the image before encoding:
+  - `0`: No preprocessing.
+  - `1`: Segment smooth preprocessing.
+  - `2`: Pseudo-random dithering preprocessing (improves quality at the expense of file size).
+
+#### **14. segments**
+
+- **Type**: `number`
+- **Range**: `0 - 4`
+- **Description**: Specifies the number of segments to use for the encoding process. More segments result in better image quality and smaller file size, but take longer to encode.
+
+#### **15. partitions**
+
+- **Type**: `number`
+- **Range**: `0 - 3`
+- **Description**: Defines how many partitions to use when encoding the image. A higher number of partitions provides better image quality and compression at the cost of encoding time.
+
+#### Example Configuration:
+
+```js
+webpEncodeOptions: {
+    webp: {
+        method: 6,
+        quality: 50,
+        alpha_compression: 1,
+        alpha_quality: 100,
+        alpha_filtering: 0,
+        autofilter: 0,
+        filter_strength: 0,
+        filter_type: 0,
+        filter_sharpness: 7,
+        pass: 10,
+        use_sharp_yuv: 0,
+        sns_strength: 0,
+        preprocessing: 1,
+        segments: 4,
+        partitions: 3,
+    },
+},
+```
+
+---
+
+## 3. **AVIF Encoding Configuration (`avifEncodeOptions`)**
+
+AVIF (AV1 Image File Format) is a modern image format that offers superior compression, combining both lossy and lossless compression techniques. It is known for delivering high-quality images with smaller file sizes compared to older formats like JPEG or PNG. The **avifEncodeOptions** configuration allows you to fine-tune the encoding parameters for AVIF images. Below is a breakdown of each parameter:
+
+#### **1. cqLevel**
+
+- **Type**: `number`
+- **Range**: `0 - 62`
+- **Description**: Sets the quality of the image, where `62` represents the highest quality (lossless) and `0` represents the lowest quality (strongest compression). Lower values reduce file size but degrade image quality. A balanced range (around `30-50`) is often used for optimal quality and size trade-off.
+
+#### **2. subsample**
+
+- **Type**: `number`
+- **Values**: `0` or `1`
+- **Description**: Controls chroma subsampling, which reduces the resolution of the chroma (color) channels to save space:
+  - `0`: No chroma subsampling (lossless color representation).
+  - `1`: Subsample chroma (reduces color resolution, typically not noticeable to the human eye but saves space).
+
+#### **3. cqAlphaLevel**
+
+- **Type**: `number`
+- **Range**: `0 - 62` or `-1`
+- **Description**: Specifies the quality of the alpha channel (transparency). Similar to `cqLevel`, a higher value means better quality but a larger file size. If set to `-1`, the alpha channel is disabled (i.e., no transparency is encoded).
+  - `-1`: Disable alpha encoding.
+  - `0 - 62`: Set quality for alpha channel (lower values compress the transparency more, leading to lower quality).
+
+#### **4. chromaDeltaQ**
+
+- **Type**: `boolean`
+- **Description**: Enables or disables additional chroma compression to improve the overall image quality and compression:
+  - `true`: Extra chroma compression (helps to reduce file size further).
+  - `false`: No extra chroma compression.
+
+#### **5. sharpness**
+
+- **Type**: `number`
+- **Range**: `0 - 7`
+- **Description**: Controls the sharpness of the image. Higher values provide a sharper image, but at the expense of larger file sizes. Setting it too high may also introduce noise. It is generally set between `0` and `3` for most images to maintain sharpness while keeping file sizes manageable.
+
+#### **6. denoiseLevel**
+
+- **Type**: `number`
+- **Range**: `0 - 50`
+- **Description**: Determines the level of noise reduction applied during encoding. A higher value removes more noise but can result in a loss of fine details. Lower values preserve detail at the cost of more visible noise. Common values are between `0` and `10` for subtle noise reduction.
+
+#### **7. tune**
+
+- **Type**: `number`
+- **Values**: `0`, `1`, or `2`
+- **Description**: Specifies how the encoder should be tuned:
+  - `0`: Auto (default setting, balanced tuning).
+  - `1`: PSNR (Peak Signal-to-Noise Ratio) tuning focuses on preserving high quality in terms of numerical accuracy.
+  - `2`: SSIM (Structural Similarity Index) tuning optimizes for perceptual image quality, focusing on how the human eye perceives images.
+
+#### **8. speed**
+
+- **Type**: `number`
+- **Range**: `0 - 10`
+- **Description**: Controls the encoding speed versus compression quality trade-off. The higher the number, the faster the encoding, but at the cost of compression efficiency and quality. A lower number produces better compression but requires more time.
+  - `0`: Maximum effort, slowest encoding but best quality.
+  - `10`: Fastest encoding with the lowest compression efficiency.
+
+#### Example Configuration:
+
+```js
+avifEncodeOptions: {
+    avif: {
+        cqLevel: 35,
+        subsample: 1,
+        cqAlphaLevel: -1,
+        chromaDeltaQ: true,
+        sharpness: 0,
+        denoiseLevel: 0,
+        tune: 2,
+        speed: 0,
+    },
+},
+```
+
+---
+
+## 4. **SVG Optimization Configuration (`svgOptions`)**
+
+SVG (Scalable Vector Graphics) is a widely used image format for vector-based graphics. It's often used for logos, icons, and illustrations because of its ability to scale to any resolution without losing quality. Optimizing SVG files is crucial to reduce file sizes and improve web performance. The **svgOptions** configuration allows you to fine-tune the optimization of SVG files by using various plugins and settings. Below is a breakdown of each parameter:
+
+#### 1. **multipass** (default: `true`)
+
+- **Description:** The `multipass` setting determines whether multiple passes should be made over the SVG to optimize it further. When set to `true`, the tool will go through the file several times to maximize the compression and optimization. While this can improve the quality of the optimization, it may take more processing time. Setting it to `false` can reduce processing time but may result in slightly larger files.
+
+#### 2. **plugins** (default: `[]`)
+
+- **Description:** The `plugins` array contains different plugins that perform specific optimizations on the SVG file. Each plugin has a `name` and an optional `params` object that defines further settings. The following is an explanation of some key plugins that are typically included in the configuration:
+
+##### **`preset-default` Plugin:**
+
+- **Description:** This is a preset configuration that applies a series of common optimizations to SVG files. The `overrides` parameter contains various options to customize the behavior of the preset. These options include:
+
+  - **removeDoctype:** Removes the `DOCTYPE` declaration from the SVG file.
+  - **removeXMLProcInst:** Strips XML processing instructions from the file.
+  - **removeComments:** Removes any comments within the SVG file.
+  - **removeMetadata:** Removes metadata tags like author or copyright information.
+  - **removeEditorsNSData:** Removes editor-specific data like `xmlns:editor` attributes.
+  - **cleanupAttrs:** Cleans up unnecessary attributes that aren't required by the SVG file.
+  - **mergeStyles:** Merges multiple `<style>` elements into one.
+  - **inlineStyles:** Converts external CSS styles into inline styles within the SVG file.
+  - **minifyStyles:** Minifies inline CSS styles.
+  - **cleanupIds:** Cleans up unnecessary IDs that are not used.
+  - **removeUselessDefs:** Removes unused `<defs>` elements.
+  - **cleanupNumericValues:** Cleans up numeric values (e.g., trailing decimals) to reduce file size.
+  - **convertColors:** Converts color formats to more compact alternatives (e.g., `#ffffff` to `#fff`).
+  - **removeUnknownsAndDefaults:** Removes any unknown attributes and default attributes that are unnecessary.
+  - **removeNonInheritableGroupAttrs:** Strips attributes from `<g>` (group) elements that aren't inheritable.
+  - **removeUselessStrokeAndFill:** Removes unnecessary stroke and fill properties that don't affect rendering.
+  - **removeViewBox:** Keeps the `viewBox` attribute for better scaling (set to `false` to disable).
+  - **cleanupEnableBackground:** Cleans up `enable-background` attributes.
+  - **removeHiddenElems:** Removes any hidden elements (those with `display: none`).
+  - **removeEmptyText:** Removes any empty `<text>` elements.
+  - **convertShapeToPath:** Converts shapes (e.g., rectangles, circles) into `<path>` elements.
+  - **moveElemsAttrsToGroup:** Moves attributes from child elements to their parent group if applicable.
+  - **moveGroupAttrsToElems:** Moves group attributes to the individual child elements.
+  - **collapseGroups:** Collapses groups that have no children or unnecessary attributes.
+  - **convertPathData:** Converts paths into more optimized data formats.
+  - **convertEllipseToCircle:** Converts ellipses to circles where possible to reduce complexity.
+  - **convertTransform:** Simplifies and optimizes transformations.
+  - **removeEmptyAttrs:** Removes any empty attributes within the SVG.
+  - **removeEmptyContainers:** Strips out any empty container elements (like empty `<g>` tags).
+  - **mergePaths:** Merges paths that are identical or can be combined.
+  - **removeUnusedNS:** Removes unused namespaces in the SVG.
+  - **sortAttrs:** Sorts the attributes in alphabetical order for better readability and consistency.
+  - **sortDefsChildren:** Sorts the children of `<defs>` elements for better organization.
+  - **removeTitle:** Strips out any `<title>` elements.
+  - **removeDesc:** Removes any `<desc>` (description) elements.
+
+##### **Other Plugins:**
+
+- **`cleanupListOfValues`:** Cleans up the list of values within certain attributes like `stroke-dasharray`. The `floatPrecision` parameter controls how many decimal places to retain in the values, while `leadingZero` specifies whether to include a leading zero in values like `.5` (set to `false` to remove the leading zero).
+
+- **`removeRasterImages`:** Removes embedded raster images (like PNGs or JPEGs) in the SVG, leaving only vector elements. This is useful if you want to convert an SVG to a purely vector-based format.
+
+- **`reusePaths`:** Reuses paths when possible to reduce file size. If there are duplicate paths, this plugin merges them into a single path.
+
+- **`removeScriptElement`:** Removes any `<script>` tags within the SVG to ensure that the file is purely vector-based and does not contain executable code.
+
+- **`removeOffCanvasPaths`:** Removes any paths that are located outside of the visible canvas area, reducing file size.
+
+- **`removeDimensions`:** Strips out width and height attributes from the SVG, allowing the SVG to scale based on the container size.
+
+#### 3. **floatPrecision** (default: 1)
+
+- **Description:** This parameter controls the precision of numeric values, such as coordinates and lengths, within the SVG file. It helps reduce file size by eliminating excessive precision (e.g., `1.0000` to `1.0`). The value represents the number of decimal places to keep. A setting of `1` will round numbers to one decimal place.
+
+#### 4. **transformPrecision** (default: 0)
+
+- **Description:** Similar to `floatPrecision`, this setting determines the precision of transformation values (e.g., scaling, rotation) in the SVG. It allows you to balance the file size and precision, with higher values maintaining greater accuracy in transformations.
+
+#### 5. **leadingZero** (default: `false`)
+
+- **Description:** The `leadingZero` option specifies whether to keep the leading zero in fractional numbers (e.g., `0.5` becomes `.5`). Setting this to `false` reduces file size by removing the leading zero, though it may make the file less readable.
+
+#### Example Configuration:
+
+```js
+svgOptions: {
+    multipass: true,
+    plugins: [
+        {
+            name: "preset-default",
+            params: {
+                overrides: {
+                    removeDoctype: true,
+                    removeXMLProcInst: true,
+                    removeComments: true,
+                    removeMetadata: true,
+                    removeEditorsNSData: true,
+                    cleanupAttrs: true,
+                    mergeStyles: true,
+                    inlineStyles: true,
+                    minifyStyles: true,
+                    cleanupIds: true,
+                    removeUselessDefs: true,
+                    cleanupNumericValues: true,
+                    convertColors: true,
+                    removeUnknownsAndDefaults: true,
+                    removeNonInheritableGroupAttrs: true,
+                    removeUselessStrokeAndFill: true,
+                    removeViewBox: false,
+                    cleanupEnableBackground: true,
+                    removeHiddenElems: true,
+                    removeEmptyText: true,
+                    convertShapeToPath: true,
+                    moveElemsAttrsToGroup: true,
+                    moveGroupAttrsToElems: false,
+                    collapseGroups: true,
+                    convertPathData: true,
+                    convertEllipseToCircle: true,
+                    convertTransform: true,
+                    removeEmptyAttrs: true,
+                    removeEmptyContainers: true,
+                    mergePaths: true,
+                    removeUnusedNS: true,
+                    sortAttrs: true,
+                    sortDefsChildren: true,
+                    removeTitle: true,
+                    removeDesc: true,
+                },
+                floatPrecision: 1,
+                transformPrecision: 0,
+                leadingZero: false,
+            },
+        },
+        {
+            name: "cleanupListOfValues",
+            params: {
+                floatPrecision: 1,
+                leadingZero: false,
+            },
+        },
+        "removeRasterImages",
+        "reusePaths",
+        "removeScriptElement",
+        "removeOffCanvasPaths",
+        "removeDimensions",
+    ],
+},
+```
+
+## 5. **Image Worker Set Configuration:**
+
+The `set` configuration within the `imageWorker` object defines high-level parameters for image handling, particularly regarding screen sizes and upscaling levels. Below is a breakdown of each parameter in the `set` configuration:
+
+### 1. **screenSizes**
+
+- **Description:** The `screenSizes` parameter defines the various device screen widths for which images will be optimized. These sizes correspond to common breakpoints in responsive web design, ensuring that the images are tailored to different screen dimensions for optimal rendering. This is particularly useful when dealing with image sources for responsive images or generating various image resolutions for each breakpoint.
+
+- **Values:**
+  - `xs`: 400px — Represents extra small screens, such as mobile phones.
+  - `sm`: 640px — Small screens, such as some mobile devices.
+  - `md`: 768px — Medium-sized screens, often for tablets.
+  - `lg`: 1024px — Large screens, typically for laptops and tablets in landscape mode.
+  - `xl`: 1280px — Extra-large screens, commonly for desktops.
+  - `xxl`: 1536px — Very large screens, for larger desktop monitors or high-resolution displays.
+  - `xxxl`: 3172px — Super-large screens, used for ultra-wide or high-end display setups.
+
+These sizes can be adjusted or extended based on the specific needs of your project or the target devices you're designing for.
+
+### 2. **upscaleLevel**
+
+- **Description:** The `upscaleLevel` parameter defines the factor by which images can be upscaled during optimization. Setting an upscale level higher than `1` allows you to enhance images that are smaller than the desired output size, thereby improving their resolution. This is useful when working with images that need to be enlarged while maintaining quality, as it helps prevent pixelation or blurring.
+
+- **Values:**
+  - `1`: No upscaling (default setting). Images will not be enlarged beyond their original dimensions.
+  - `2`: Upscales images to 2x their original resolution, improving quality for larger displays.
+  - `3`: Upscales images to 3x their original resolution, improving quality for largest displays.
+
+#### Example Configuration:
+
+```js
+set: {
+    screenSizes: {
+        xs: 400,
+        sm: 640,
+        md: 768,
+        lg: 1024,
+        xl: 1280,
+        xxl: 1536,
+        xxxl: 3172,
+    },
+    upscaleLevel: 2,
+},
+```
+
+---
+
+## 6. **targetType: (default:`webp`)**
+
+The `targetType` setting within the `imageWorker.encoding` configuration defines the desired image format for optimization. It specifies the format to which the image should be converted during the optimization process. The supported options ensure that images are encoded in modern, efficient formats that provide a balance between high quality and small file sizes.
+
+#### **Benefits of Using WebP:**
+
+- **Smaller File Sizes**: WebP images tend to be 25-34% smaller than JPEGs and PNGs at similar quality levels, making it an excellent choice for web performance optimization.
+- **Lossless and Lossy Compression**: WebP supports both lossless and lossy compression, allowing you to choose the right trade-off between image quality and file size.
+- **Transparency Support**: WebP supports transparency (like PNG) with smaller file sizes, making it ideal for web assets like icons and images with transparency.
+- **Wide Browser Support**: Most modern browsers support WebP, including Chrome, Firefox, Edge, and Opera, making it a reliable choice for websites targeting a broad audience.
+
+#### **Other Target Formats (Optional for Customization):**
+
+While the default setting is `webp`, the `targetType` can be adjusted to other formats depending on your project needs. Some common alternatives include:
+
+- `jpg`: For high-quality, lossy compression optimized for photographs and web images.
+- `avif`: Another modern image format offering superior compression, often providing better results than WebP in terms of image quality and file size.
+- `svg`: For SVG to SVG optimization, ensuring vector graphics are efficiently compressed without losing quality.

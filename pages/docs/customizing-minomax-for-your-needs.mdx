@@ -1,238 +1,131 @@
 ---
 title: "Minomax Configuration Guide: Customizing Your Web Optimization"
 description: "This guide will help you understand the flexible and powerful settings offered by Minomax. Optimize your web assets effectively by defining image set configurations, destination paths, and more."
-thumbnailUrl: /ogcover.png 
+thumbnailUrl: /images/ogcover.webp
 ---
-import { Callout } from "nextra/components"
+
+import { Callout } from "nextra/components";
 
 # Minomax Configuration
 
 ---
 
-Welcome to the Minomax configuration guide. This page will help you understand how to configure Minomax to suit your web optimization needs. Minomax offers flexible and powerful settings to ensure your web assets are optimized effectively.
+The Minomax configuration file is a simple **JavaScript file** (`minomax.config.js`) that acts as the control center for customizing and fine-tuning optimizations. It allows you to define how images, videos, and web documents are processed, stored, and optimized.
 
-## Configuration File: `minomax.config.json`
+## Key Highlights of the Configuration File:
 
-The `minomax.config.json` file is where you define your settings for Minomax. Below is an example configuration file along with explanations for each section.
+1. **File Style**: A JavaScript file that exports a configuration object.
+2. **Initialization**: Easily initialize the configuration file using the CLI command:
+   ```bash
+   npx minomax init
+   ```
+   This generates a ready-to-use configuration file with default settings.
+3. **Customization Scope**:
+   - **Storage Paths**: Specify where processed files are saved.
+   - **Compression Formats**: Define output formats for images (e.g., WebP, AVIF) and videos (e.g., MP4, WebM).
+   - **Optimization Parameters**:
+     - **Images**: Set quality, encoding type, and advanced image processing options.
+     - **Videos**: Configure codec type, compression level, and more.
+     - **Web Documents**: Customize HTML, CSS, and JavaScript minification parameters.
+4. **Adaptability**: Modify high-level settings like screen sizes for responsive images, ignored files or folders, and experimental features.
 
-```json
-{
-  "imageSetConfigurations": {
-    "screenSizes": {
-      "1X": 600,
-      "2X": 1080,
-      "3X": 1920,
-      "4X": 2560,
-      "5X": 3840
-    },
-    "upscaleLevel": "level2"
-  },
-  "destPath": "./dist"
-  ,
-  "encodeOptions": {
-    // ⚠️ Nerd alert! Advanced options => Image Encoding options for image file types such as jpg, webp, & avif
-  },
-  "webdoc": {
-    // ⚠️ Nerd alert! Advanced options => Encoding options for webdocs such as html, js & css
-  },
-}
+The configuration file ensures that every aspect of Minomax’s functionality aligns perfectly with your project’s requirements.
+
+In the next section, we’ll explore the structure and individual options available within the configuration file.
+
+## Skeleton of Configuration File
+
+The configuration file is structured to offer flexibility while keeping everything organized and intuitive. Below is the basic skeleton, followed by a detailed explanation of each key:
+
+```javascript
+const defaultConfig: ConfigurationOptions = {
+  imageWorker: { ... },
+  videoWorker: { ... },
+  webDoc: { ... },
+  lookUpPatterns: { ... },
+  ignorePatterns: ["node_modules/**"],
+  destPath: "./minomax-output",
+  removeOld: true,
+  experimental: { selectorRenamer: false },
+};
+
+export default defaultConfig;
 ```
 
-#### Sections Explained
+### Key Components of the Configuration File
 
+#### 1. **`imageWorker`**
 
-1. **imageSetConfigurations:**
+Manages settings related to image optimization, including output formats and encoding options.
 
-   This section is crucial for defining how Minomax handles image set generation for different devices. You can specify the screen sizes and the upscale level.
+- **`encoding`**: Defines the output format (e.g., WebP, AVIF) and compression options for images.
+- **`set`**: Allows customization of responsive image generation, including screen sizes and upscale levels.
 
-   - **screenSizes:** Defines the width in pixels for different screen size categories. This helps generate responsive image sets.
-   - **upscaleLevel:** Determines the level of upscaling applied to images. Common levels include "level1", "level2" & "level3" (Intensity and Computational costs increases as level increases).
+#### 2. **`videoWorker`**
 
-   ```json
-   "imageSetConfigurations": {
-     "screenSizes": {
-       "1X": 600,
-       "2X": 1080,
-       "3X": 1920,
-       "4X": 2560,
-       "5X": 3840
-     },
-     "upscaleLevel": "level2"
-   }
-   ```
+Handles video compression settings.
 
-2. **destPath:**
+- **`encoding`**: Specifies codec types (e.g., H.265, AV1) and compression levels for optimal video quality and size.
 
-   This option sets the destination path where the optimized files will be saved.
+#### 3. **`webDoc`**
 
-   ```json
-   "destPath": "./disr"
-   ```
+Covers optimization for web documents such as HTML, CSS, and JavaScript.
 
-3. **encodeOptions:**
+- **`htmloptions`**: Controls minification of HTML documents, including options to remove comments, redundant attributes, and whitespace, along with inline CSS/JS minification.
 
-<Callout type="warning">This is not necessary because it already fine tuned that would be adequate for most cases.</Callout>
+#### 4. **`lookUpPatterns`**
 
-   This section defines encoding options for different file types of images such as jpg, webp and avif. You can customize settings like compression level, format, and quality here.
+Defines the file types Minomax should process.
 
-   ```json
-   "encodeOptions": {
-		"cpuAllocation": 10,
-		"jpgEncodeOptions": {
-			"mozjpeg": {
-				"quality": 60,
-				"color_space": 3,
-				"auto_subsample": false,
-				"chroma_subsample": 4,
-				"progressive": true,
-				"smoothing": 0,
-				"quant_table": 2,
-				"trellis_multipass": true,
-				"trellis_opt_zero": true,
-				"trellis_opt_table": true,
-				"trellis_loops": 50,
-				"separate_chroma_quality": false,
-				"chroma_quality": 75
-			}
-		},
-		"webpEncodeOptions": {
-			"webp": {
-				"method": 6,
-				"quality": 50,
-				"alpha_compression": 1,
-				"alpha_quality": 100,
-				"alpha_filtering": 0,
-				"autofilter": 0,
-				"filter_strength": 0,
-				"filter_type": 0,
-				"filter_sharpness": 7,
-				"pass": 10,
-				"use_sharp_yuv": 0,
-				"sns_strength": 0,
-				"preprocessing": 1,
-				"segments": 4,
-				"partitions": 3
-			}
-		},
-		"avifEncodeOptions": {
-			"avif": {
-				"cqLevel": 35,
-				"subsample": 1,
-				"cqAlphaLevel": -1,
-				"chromaDeltaQ": true,
-				"sharpness": 0,
-				"denoiseLevel": 0,
-				"tune": 2,
-				"speed": 0
-			}
-		},
-		"svgOptions": {
-			"multipass": true,
-			"plugins": [
-				{
-					"name": "preset-default",
-					"params": {
-						"overrides": {
-							"removeDoctype": true,
-							"removeXMLProcInst": true,
-							"removeComments": true,
-							"removeMetadata": true,
-							"removeEditorsNSData": true,
-							"cleanupAttrs": true,
-							"mergeStyles": true,
-							"inlineStyles": true,
-							"minifyStyles": true,
-							"cleanupIds": true,
-							"removeUselessDefs": true,
-							"cleanupNumericValues": true,
-							"convertColors": true,
-							"removeUnknownsAndDefaults": true,
-							"removeNonInheritableGroupAttrs": true,
-							"removeUselessStrokeAndFill": true,
-							"removeViewBox": false,
-							"cleanupEnableBackground": true,
-							"removeHiddenElems": true,
-							"removeEmptyText": true,
-							"convertShapeToPath": true,
-							"moveElemsAttrsToGroup": true,
-							"moveGroupAttrsToElems": false,
-							"collapseGroups": true,
-							"convertPathData": true,
-							"convertEllipseToCircle": true,
-							"convertTransform": true,
-							"removeEmptyAttrs": true,
-							"removeEmptyContainers": true,
-							"mergePaths": true,
-							"removeUnusedNS": true,
-							"sortAttrs": true,
-							"sortDefsChildren": true,
-							"removeTitle": true,
-							"removeDesc": true
-						},
-						"floatPrecision": 1,
-						"transformPrecision": 0,
-						"leadingZero": false
-					}
-				},
-				{
-					"name": "cleanupListOfValues",
-					"params": {
-						"floatPrecision": 1,
-						"leadingZero": false
-					}
-				},
-				"removeRasterImages",
-				"reusePaths",
-				"removeScriptElement",
-				"removeOffCanvasPaths",
-				"removeDimensions"
-			]
-		}
-	}
-   ```
+- **`webDoc`**: Patterns for web documents, e.g., `["**/*.css", "**/*.js", "**/*.html"]`.
+- **`image`**: Patterns for image files, e.g., `["**/*.png", "**/*.jpg", "**/*.webp"]`.
+- **`video`**: Patterns for video files, e.g., `["**/*.mp4", "**/*.webm"]`.
 
-4. **webdoc:**
+#### 5. **`ignorePatterns`**
 
-<Callout type="warning">This is not necessary because it already fine tuned that would be adequate for most cases.</Callout>
+A list of file paths or patterns to exclude from processing.
 
-   This section includes options specific to web document compression. You can enable or disable minification and other optimization settings.
+- Example: `"node_modules/**"` ensures third-party dependencies are not processed.
 
-   ```json
-   "webdoc": {
-    "htmloptions": {
-			"removeComments": true,
-			"removeRedundantAttributes": true,
-			"collapseWhitespace": true,
-			"html5": true,
-			"minifyCSS": true,
-			"minifyJS": true,
-			"quoteCharacter": "'",
-			"removeEmptyAttributes": true,
-			"removeScriptTypeAttributes": true,
-			"removeStyleLinkTypeAttributes": true,
-			"removeTagWhitespace": true
-		}
-   }
-   ```
+#### 6. **`destPath`**
+
+Specifies the output directory where optimized files are stored.
+
+- Default: `"./minomax-output"`.
+
+#### 7. **`removeOld`**
+
+Determines whether the output directory should be cleared before processing begins.
+
+- Default: `true`.
+
+#### 8. **`experimental`**
+
+A section for enabling experimental features.
+
+- **`selectorRenamer`**: A feature that renames CSS selectors to minimize file size (currently experimental).
+
+---
+
+By understanding and customizing these keys, you can tailor Minomax’s functionality to your project’s unique needs. In the following sections, we’ll explore individual components like `imageWorker` and `webDoc` in greater detail, complete with examples for advanced customization.
+
 ---
 
 Thank you for choosing Minomax to optimize and elevate your web projects!
 
-import style from '../stylesheets/utils.module.scss'
-
-<br/>
-<br/>
-<br/>
-<br/>
+<br />
+<br />
+<br />
+<br />
 <strong>Keywords:</strong>
-<ul className={style.keywords}>
-    <li>Minomax configuration</li>
-    <li>Web optimization settings</li>
-    <li>Image set generation</li>
-    <li>Screen sizes</li>
-    <li>Upscale levels</li>
-    <li>Encoding options</li>
-    <li>Image compression</li>
-    <li>Web document compression</li>
-    <li>Minification</li>
+<ul className="keywords">
+  <li>Minomax configuration</li>
+  <li>Web optimization settings</li>
+  <li>Image set generation</li>
+  <li>Screen sizes</li>
+  <li>Upscale levels</li>
+  <li>Encoding options</li>
+  <li>Image compression</li>
+  <li>Web document compression</li>
+  <li>Minification</li>
 </ul>

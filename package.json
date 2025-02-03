@@ -3,7 +3,7 @@
   "version": "0.2b",
   "description": "Minomax API References",
   "scripts": {
-    "dev": "next dev",
+    "dev": "(cls || clear) && next dev",
     "build": "next build",
     "start": "next start",
     "cfav": "node dev/compress-images.mjs favicons",

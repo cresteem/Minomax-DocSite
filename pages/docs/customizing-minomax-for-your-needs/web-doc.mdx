@@ -1,0 +1,95 @@
+---
+title: "WebDoc Configuration"
+description: "Learn how to configure WebDoc for optimizing and minifying HTML documents, including HTML5, CSS, and JavaScript options."
+thumbnailUrl: /images/ogcover.webp
+---
+
+# **WebDoc Configuration**
+
+The **WebDoc Configuration** is used for optimizing and minifying HTML files. This section outlines the settings available to control how your web documents (HTML, CSS, JavaScript) are processed and optimized. Below is an explanation of each configurable option:
+
+### **1. `removeComments`**
+
+- **Type**: `boolean`
+- **Description**: If set to `true`, all comments will be removed from the HTML document. This helps reduce the size of the HTML output.
+
+### **2. `removeRedundantAttributes`**
+
+- **Type**: `boolean`
+- **Description**: If enabled (`true`), unnecessary or redundant attributes will be removed from HTML tags, such as `type="text/javascript"` on `<script>` tags, or `type="text/css"` on `<link>` tags.
+
+### **3. `collapseWhitespace`**
+
+- **Type**: `boolean`
+- **Description**: When set to `true`, it will remove extra spaces, newlines, and indentation from the HTML document, which will significantly reduce the file size.
+
+### **4. `html5`**
+
+- **Type**: `boolean`
+- **Description**: When set to `true`, the configuration ensures the output follows **HTML5** standards, replacing older attributes and tags with their HTML5 equivalents.
+
+### **5. `minifyCSS`**
+
+- **Type**: `boolean`
+- **Description**: If enabled, the CSS code within the HTML document will be minified by removing unnecessary spaces, comments, and line breaks.
+
+### **6. `minifyJS`**
+
+- **Type**: `boolean`
+- **Description**: When set to `true`, any JavaScript code in the HTML document will be minified. This reduces the file size by removing unnecessary whitespace, comments, and shortening variable names.
+
+### **7. `quoteCharacter`**
+
+- **Type**: `string`
+- **Description**: Determines the type of quotation marks used for HTML attributes (`"` or `'`). You can set this to `'` (single quotes) or `"` (double quotes) based on your preference.
+
+### **8. `removeEmptyAttributes`**
+
+- **Type**: `boolean`
+- **Description**: If enabled (`true`), all empty attributes (e.g., `checked`, `disabled`, `readonly`) will be removed from HTML tags, further reducing the file size.
+
+### **9. `removeScriptTypeAttributes`**
+
+- **Type**: `boolean`
+- **Description**: When set to `true`, the `type="text/javascript"` attribute will be removed from `<script>` tags as it is not needed in modern browsers.
+
+### **10. `removeStyleLinkTypeAttributes`**
+
+- **Type**: `boolean`
+- **Description**: Similar to `removeScriptTypeAttributes`, this removes `type="text/css"` from `<link>` tags that include stylesheets.
+
+### **11. `removeTagWhitespace`**
+
+- **Type**: `boolean`
+- **Description**: If set to `true`, unnecessary whitespace within tags (e.g., `<div   >` → `<div>`) will be removed.
+
+---
+
+## **Example Configuration:**
+
+Here’s an example of how to configure the **WebDoc options** for HTML optimization:
+
+```js
+webDoc: {
+    htmloptions: {
+        removeComments: true,
+        removeRedundantAttributes: true,
+        collapseWhitespace: true,
+        html5: true,
+        minifyCSS: true,
+        minifyJS: true,
+        quoteCharacter: "'",
+        removeEmptyAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        removeTagWhitespace: true,
+    },
+},
+```
+
+### **How It Works:**
+
+- **Minify and Clean Up HTML**: This configuration will remove comments, unnecessary attributes, and redundant spaces, helping to create a more efficient and compressed version of the HTML.
+- **Optimize CSS and JS**: It will also minify the CSS and JS inside the document, improving the performance by reducing the file size.
+
+This section allows users to fine-tune the HTML optimization process according to their specific needs, balancing between performance and readability of the output.

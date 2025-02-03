@@ -1,169 +1,351 @@
 ---
 title: "Minomax API Reference: Your Toolkit for Web Optimization"
 description: "Dive into the Minomax API and discover a range of functions for optimizing web assets. This reference guide covers image compression, video compression, web document minification, and more, with detailed parameters and examples."
-thumbnailUrl: /ogcover.png 
+thumbnailUrl: /images/ogcover.webp
 ---
 
-# Minomax API Reference
+# **Minomax API Reference**
 
-Minomax is a comprehensive tool for optimizing web assets, including images, videos, and web documents. Below are the primary functions available in the Minomax API.
+The `Minomax` class provides a set of tools for processing images, videos, and web documents. Its public APIs allow developers to manage tasks like video encoding, image compression, thumbnail generation, image set generation, and web document ( Javascript, CSS, HTML ) minification. Below is a detailed reference for the public methods exposed by this class.
 
-## Functions
+---
 
-### `1.minomax`
+## **Constructor**
 
-The `minomax` function orchestrates the entire workflow, including image set generation, image and video compression, and web document minification.
+The `Minomax` constructor initializes a new instance of the `Minomax` class with configurations and worker instances.
 
-#### Parameters
+### **Usage**
 
-- **`imageWorkerParams`** (`ImageWorkerParamsMain`): Parameters for image compression.
-- **`videoWorkerParams`** (`VideoWorkerParamsMain`): Parameters for video compression.
-- **`destinationBasePath`** (`string`, optional): The base path where outputs will be saved. Defaults to `configurations.destPath`.
-- **`ignorePatterns`** (`string[]`, optional): Patterns to ignore during file operations.
-- **`webDocFilesPatterns`** (`string[] | false`, optional): Patterns for web documents to process. Defaults to `["**/*.css", "**/*.js", "**/*.html", "**/*.htm"]`.
-- **`removeOld`** (`boolean`, optional): Flag to remove old outputs. Defaults to `true`.
-
-#### Description
-
-1. **Pre-processing**: Deletes old outputs and copies web document files to the destination path.
-2. **Image Set Generation**: Generates image sets and transforms `<img>` tags to `<picture>`.
-3. **Image Compression**: Compresses images.
-4. **Video Compression**: Compresses videos and generates thumbnails.
-5. **Web Document Minification**: Minifies HTML, CSS, and JS files.
-
-#### Example
-
-```javascript
-await minomax(
-  { targetFormat: "webp" }, 
-  { codecType: "wav1", encodeLevel: 2 },
-  "./output",
-  ["node_modules/**"],
-  ["**/*.html"],
-  true
-);
+```ts copy
+const minomaxInstance = new Minomax();
 ```
 
 ---
 
-### `2.compressImages`
+### **Methods**
 
-Compresses images based on the specified patterns and format.
+#### **1. `minomax()`**
 
-#### Parameters
+This method is typically used in a post-deployment pipeline to prepare deployment files by processing and optimizing them. It includes tasks such as generating image sets, compressing images and videos, minifying web documents (such as JavaScript, CSS, HTML), and including video thumbnails.
 
-- **`pathPatterns`** (`string[]`): Patterns for images to compress.
-- **`targetFormat`** (`ImageWorkerOutputTypes`): Desired output format for images.
-- **`destinationBasePath`** (`string`, optional): The base path where compressed images will be saved. Defaults to `configurations.destPath`.
-- **`ignorePatterns`** (`string[]`, optional): Patterns to ignore during file operations.
+##### Parameters
 
-#### Description
+- `imageWorkerParams` _(optional)_: Specifies parameters for image processing, including the target format.
 
-Compresses images and saves them to the specified destination path.
+  **Type:**
 
-#### Example
+  ```ts
+  {
+    targetFormat: "jpg" | "avif" | "webp" | "svg";
+  }
+  ```
 
-```javascript
-await compressImages(
-  ["**/*.png", "**/*.jpg"],
-  "webp",
-  "./compressed-images"
-);
-```
+  **Default:** `{ targetFormat: this.configurations.imageWorker.encoding.targetType }`
 
----
+  <br />
 
-### `3.compressVideos`
+- `videoWorkerParams` _(optional)_: Specifies parameters for video processing, including codec type and encoding level.
 
-Compresses videos and generates thumbnails.
+  **Type:**
 
-#### Parameters
+  ```ts
+  {
+    codecType: "wav1" | "mav1" | "mx265";
+    encodeLevel: 1 | 2 | 3;
+  }
+  ```
 
-- **`pathPatterns`** (`string[]`): Patterns for videos to compress.
-- **`codecType`** (`"wav1" | "mav1" | "mx265"`): Codec type for video compression.
-- **`encodeLevel`** (`1 | 2 | 3`, optional): Encoding level. Defaults to `3`.
-- **`destinationBasePath`** (`string`, optional): The base path where compressed videos will be saved. Defaults to `configurations.destPath`.
-- **`ignorePatterns`** (`string[]`, optional): Patterns to ignore during file operations.
+  **Default:** `this.configurations.videoWorker.encoding`
 
-#### Description
+<br />
 
-Compresses videos and generates thumbnails, saving them to the specified destination path.
+- `ignorePatterns` _(optional)_: Patterns to ignore during file searches.
 
-#### Example
+  **Type:** `string[]`
 
-```javascript
-await compressVideos(
-  ["**/*.mp4"],
-  "mav1",
-  2,
-  "./compressed-videos"
-);
-```
+  **Default:** `this.configurations.ignorePatterns`
 
----
+  <br />
 
-### `4.minifyWebdoc`
+- `webDocLookUpPatterns` _(optional)_: File patterns for locating web documents.
 
-Minifies web documents such as HTML, CSS, and JS.
+  **Type:** `string[]`
 
-#### Parameters
+  **Default:** `this.configurations.lookUpPatterns.webDoc`
 
-- **`pathPatterns`** (`string[]`): Patterns for web documents to minify.
-- **`destinationBasePath`** (`string`, optional): The base path where minified documents will be saved. Defaults to `configurations.destPath`.
-- **`fileSearchBasePath`** (`string`, optional): Base path to search for files. Defaults to `process.cwd()`.
-- **`ignorePatterns`** (`string[]`, optional): Patterns to ignore during file operations.
+  <br />
 
-#### Description
+- `destinationBasePath` _(optional)_: Directory for storing processed files.
 
-Minifies web documents and saves them to the specified destination path.
+  **Type:** `string`
 
-#### Example
+  **Default:** `this.configurations.destPath`
 
-```javascript
-await minifyWebdoc(
-  ["**/*.html", "**/*.css"],
-  "./minified-docs"
-);
-```
+  <br />
+
+- `removeOld` _(optional)_: Whether to delete old files in the destination directory.
+
+  **Type:** `boolean`
+
+  **Default:** `this.configurations.removeOld`
+
+##### Returns
+
+**Type:** `Promise<{ availableImages: string[]; availableVideos: string[]; thumnailCount: number }>`
+
+An object with lists of available images and videos, and the count of thumbnails generated.
 
 ---
 
-### `5.generateImageSets`
+#### **2. `compressImages()`**
 
-Generates image sets for different screen sizes, Convert `<img>` to `<picture>` with media queries and link thumbnails for videos.
+Compresses image files based on the given lookup patterns and target format.
 
-#### Parameters
+##### Parameters
 
-- **`pathPatterns`** (`string[]`): Patterns for HTML files to generate image sets for.
-- **`destinationBasePath`** (`string`, optional): The base path where image sets will be saved. Defaults to `configurations.destPath`.
-- **`ignorePatterns`** (`string[]`, optional): Patterns to ignore during file operations.
+- `targetFormat` _(optional)_: Target image format.
 
-#### Description
+  **Type:** `"jpg" | "avif" | "webp" | "svg"`
 
-Generates image sets and saves them to the specified destination path.
+  **Default:** `this.configurations.imageWorker.encoding.targetType`
 
-#### Example
+<br />
 
-```javascript
-await generateImageSets(
-  ["**/*.html"],
-  "./dist"
-);
-```
+- `lookUpPatterns` _(optional)_: Patterns to find image files.
 
-import style from '../stylesheets/utils.module.scss'
+  **Type:** `string[]`
 
-<br/>
-<br/>
-<br/>
-<br/>
+  **Default:** `this.configurations.lookUpPatterns.image`
+
+<br />
+
+- `destinationBasePath` _(optional)_: Directory for storing compressed
+  images.
+
+  **Type:** `string`
+
+  **Default:** `this.configurations.destPath`
+
+<br />
+
+- `ignorePatterns` _(optional)_: Patterns to ignore during file searches.{" "}
+
+  **Type:**`string[]`
+
+  **Default:** `this.configurations.ignorePatterns`
+
+<br />
+
+##### Returns
+
+**Type:** `Promise<void>`
+
+---
+
+#### **3. `compressVideos()`**
+
+Compresses video files using the specified codec and encoding level.
+
+##### Parameters
+
+- `codecType` _(optional)_: Specifies the video codec.
+
+  **Type:** `"wav1" | "mav1" | "mx265"`
+
+  **Default:** `this.configurations.videoWorker.encoding.codecType`
+
+<br />
+
+- `lookUpPatterns` _(optional)_: Patterns to find video files.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.lookUpPatterns.video`
+
+<br />
+
+- `encodeLevel` _(optional)_: Encoding level for video compression.
+
+  **Type:** `1 | 2 | 3`
+
+  **Default:** `this.configurations.videoWorker.encoding.encodeLevel`
+
+<br />
+
+- `destinationBasePath` _(optional)_: Directory for storing compressed videos.
+
+  **Type:** `string`
+
+  **Default:** `this.configurations.destPath`
+
+<br />
+
+- `ignorePatterns` _(optional)_: Patterns to ignore during file searches.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.ignorePatterns`
+
+##### Returns
+
+**Type:** `Promise<void>`
+
+---
+
+#### **4. `makeVideoThumbnail()`**
+
+Generates video thumbnails and links them to HTML files.
+
+##### Parameters
+
+- `htmlFiles` _(not required if `htmlLookupPattern` passed)_: List of HTML files to process.
+
+  **Type:** `string[]`
+
+<br />
+
+- `htmlLookupPattern` _(not required if `htmlFiles` passed)_: File patterns to locate HTML files.
+
+  **Type:** `string[]`
+
+<br />
+
+- `seekPercentage` _(optional)_: Position (as a percentage) in the video to capture the thumbnail.
+
+  **Type:** `number`
+
+  **Default:** `15`
+
+<br />
+
+- `variableImgFormat` _(optional)_: Specifies the format of the generated thumbnails.
+
+  **Type:** `"jpg" | "avif" | "webp" | "svg" | false`
+
+  **Default:** `false`
+
+<br />
+
+- `videoCodec` _(optional)_: Specifies the video codec.
+
+  **Type:** `"wav1" | "mav1" | "mx265" | false`
+
+  **Default:** `false`
+
+<br />
+
+- `ignorePatterns` _(optional)_: Patterns to ignore during file searches.
+
+  **Type:** `string[] | string`
+
+  **Default:** `this.configurations.ignorePatterns`
+
+<br />
+
+- `basePath` _(optional)_: Base directory for relative paths.
+
+  **Type:** `string`
+
+  **Default:** `""`
+
+##### Returns
+
+**Type:** `Promise<Record<string, string>>`
+
+A mapping of video file paths to their corresponding thumbnail paths.
+
+---
+
+#### **5. `generateImageSets()`**
+
+Generates responsive image sets for small to large devices, linking them to the respective `<img>` or `<picture>` tags with media queries.
+
+##### Parameters
+
+- **`lookUpPatterns`** _(optional)_: Patterns used to locate HTML files for processing.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.lookUpPatterns.webDoc`
+
+<br />
+
+- **`destinationBasePath`** _(optional)_: The base directory where the image sets will be saved.
+
+  **Type:** `string`
+
+  **Default:** `this.configurations.destPath`
+
+<br />
+
+- **`ignorePatterns`** _(optional)_: A list of patterns to exclude during file searches.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.ignorePatterns`
+
+##### Returns
+
+**Type:** `Promise<void>`
+
+---
+
+#### **6. `minifyWebdoc()`**
+
+Minifies web documents (HTML, CSS, JS) to optimize file sizes and improve load times.
+
+##### Parameters
+
+- **`lookUpPatterns`** _(optional)_: Patterns to locate the web documents for processing.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.lookUpPatterns.webDoc`
+
+<br />
+
+- **`lookUpBasePath`** _(optional)_: Base directory to start the file search.
+
+  **Type:** `string`
+
+  **Default:** `process.cwd()`
+
+<br />
+
+- **`destinationBasePath`** _(optional)_: Directory where the minified files will be saved.
+
+  **Type:** `string`
+
+  **Default:** `this.configurations.destPath`
+
+<br />
+
+- **`ignorePatterns`** _(optional)_: Patterns to ignore during the file search process.
+
+  **Type:** `string[]`
+
+  **Default:** `this.configurations.ignorePatterns`
+
+##### Returns
+
+**Type:** `Promise<void>`
+
+---
+
+For detailed command-line usage and options, proceed to the [CLI Reference](/docs/minomax-cli-reference-guide) on the next page.
+
+---
+
 <strong>Keywords:</strong>
-<ul className={style.keywords}>
-    <li>Minomax API</li>
-    <li>Web asset optimization</li>
-    <li>Image compression API</li>
-    <li>Video compression</li>
-    <li>Web document minification</li>
-    <li>Image set generation</li>
-    <li>API parameters</li>
+<ul className="keywords">
+  <li>API reference</li>
+  <li>Minomax API</li>
+  <li>Web optimization API</li>
+  <li>Image processing API</li>
+  <li>Video thumbnail API</li>
+  <li>Image set generation</li>
+  <li>Encoding options API</li>
+  <li>Web document minification API</li>
+  <li>API usage</li>
+  <li>CLI integration</li>
 </ul>

@@ -3,7 +3,7 @@ export default function NotFound() {
     <main>
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
         <div className="max-w-lg mx-auto space-y-3 text-center">
-          <h3 className="text-deep text-4xl font-semibold sm:text-5xl">
+          <h3 className="text-primary text-4xl font-semibold sm:text-5xl">
             Page not found
           </h3>
           <p className="text-gray-600">
@@ -11,7 +11,7 @@ export default function NotFound() {
           </p>
           <a
             href="/"
-            className="text-primary duration-150 hover:text-primary/[70%] font-medium inline-flex items-center gap-x-1"
+            className="text-white duration-150 hover:text-primary/[70%] font-medium inline-flex items-center gap-x-1 bg-primary py-2 px-4 rounded-full hover:bg-white hover:border-primary border"
           >
             Back to Home!
             <svg

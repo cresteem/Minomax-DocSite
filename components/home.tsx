@@ -1,4 +1,3 @@
-import { MantineProvider } from "@mantine/core";
 import ComparisonTable from "./home-utils/comparison-table";
 import Features from "./home-utils/features";
 import Hero from "./home-utils/hero";
@@ -10,15 +9,13 @@ import SupportHome from "./home-utils/support-home";
 export default function Home() {
   return (
     <main>
-      <MantineProvider>
-        <Hero />
-        <Metric />
-        <Features />
-        <HowItWorks />
-        <ComparisonTable />
-        <SponsorHome />
-        <SupportHome />
-      </MantineProvider>
+      <Hero />
+      <Metric />
+      <Features />
+      <HowItWorks />
+      <ComparisonTable />
+      <SponsorHome />
+      <SupportHome />
     </main>
   );
 }
