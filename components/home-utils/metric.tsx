@@ -12,7 +12,7 @@ const metrics: Metric = [
   {
     percent: 97,
     color: "#f26522",
-    text: "Achieve impressive image compression with AVIF, WEBP, and JPEG formats, maintaining above 90% SSIM with minimal quality differences.",
+    text: "Achieved impressive image compression with AVIF, WEBP, and JPEG formats, maintaining above 90% SSIM with minimal quality differences.",
   },
   {
     percent: 93,

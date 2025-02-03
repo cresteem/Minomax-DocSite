@@ -15,18 +15,30 @@ The Minomax configuration file is a simple **JavaScript file** (`minomax.config.
 ## Key Highlights of the Configuration File:
 
 1. **File Style**: A JavaScript file that exports a configuration object.
+
+<br />
+
 2. **Initialization**: Easily initialize the configuration file using the CLI command:
+
    ```bash
    npx minomax init
    ```
+
    This generates a ready-to-use configuration file with default settings.
+
+<br />
+
 3. **Customization Scope**:
+
    - **Storage Paths**: Specify where processed files are saved.
    - **Compression Formats**: Define output formats for images (e.g., WebP, AVIF) and videos (e.g., MP4, WebM).
    - **Optimization Parameters**:
      - **Images**: Set quality, encoding type, and advanced image processing options.
      - **Videos**: Configure codec type, compression level, and more.
      - **Web Documents**: Customize HTML, CSS, and JavaScript minification parameters.
+
+<br />
+
 4. **Adaptability**: Modify high-level settings like screen sizes for responsive images, ignored files or folders, and experimental features.
 
 The configuration file ensures that every aspect of Minomax’s functionality aligns perfectly with your project’s requirements.
@@ -75,7 +87,7 @@ Covers optimization for web documents such as HTML, CSS, and JavaScript.
 
 #### 4. **`lookUpPatterns`**
 
-Defines the file types Minomax should process.
+Defines the file path patterns Minomax should lookup for inputs.
 
 - **`webDoc`**: Patterns for web documents, e.g., `["**/*.css", "**/*.js", "**/*.html"]`.
 - **`image`**: Patterns for image files, e.g., `["**/*.png", "**/*.jpg", "**/*.webp"]`.

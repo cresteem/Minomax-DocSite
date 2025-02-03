@@ -15,7 +15,7 @@ const config = {
   backgroundColor: { dark: "#fff", light: "#fff" },
   color: { hue: 19.3, saturation: 88.9, lightness: 54.1 },
   banner: {
-    key: "1.0.1",
+    key: "1.0.2",
     content: <Banner />,
     dismissible: false,
   },
@@ -47,7 +47,7 @@ const config = {
     const title =
       frontMatter.title + " | Minomax Documentation | OpenSource of Cresteem";
     const desc = frontMatter.description;
-    const thumbnailUrl = "/thumbnail.webp";
+    const thumbnailUrl = "/images/ogcover.webp";
     return (
       <>
         <title>{title}</title>

@@ -51,7 +51,7 @@ export default function Credit() {
           <a href="https://bonse.cresteem.com/" className="link">
             BONSE
           </a>
-          , and <em className="text-primary">30+</em> projects. As a software
+          , and <em className="text-primary">34+</em> projects. As a software
           engineer and open-source contributor, Darsan focuses on creating
           practical, effective solutions for web development and performance
           optimization. With <em className="text-primary">2 years</em> of
