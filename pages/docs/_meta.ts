@@ -20,6 +20,9 @@ export default {
   "minomax-cli-reference-guide": {
     title: "CLI Reference",
   },
+  "github-action-and-gitlab-ci-cd": {
+    title: "CI/CD",
+  },
   "minomax-in-action": {
     title: "Demonstrations",
   },

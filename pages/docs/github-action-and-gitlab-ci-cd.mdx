@@ -1,0 +1,200 @@
+---
+title: "Minomax CI/CD: GitHub Actions & GitLab CI Integration"
+description: "Automate Minomax CLI in GitHub Actions and GitLab CI pipelines. Complete workflows for image optimization, video compression, and web document minification."
+thumbnailUrl: /images/ci-cd-cover.webp
+---
+
+# **CI/CD for GitHub Actions & GitLab CI**
+
+## **GitHub Actions Workflows**
+
+### **1. Basic GitHub Actions Integration**
+
+_Auto-optimize on every main branch commit_
+
+```yaml copy
+name: Minomax Automation
+on:
+  push:
+    branches: [main]
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx minomax prod -f avif -c mx265
+      - uses: actions/upload-artifact@v3
+        with:
+          name: optimized-assets
+          path: ./dist
+```
+
+### **2. GitHub Actions Matrix Strategy**
+
+_Multi-format image optimization_
+
+```yaml copy
+jobs:
+  image-formats:
+    strategy:
+      matrix:
+        format: [webp, avif, jpg]
+    steps:
+      - run: npx minomax image -p "src/img/**/*" -f ${{ matrix.format }} -d dist/${{ matrix.format }}
+```
+
+### **3. GitHub Actions Caching**
+
+_Cache optimized assets between runs_
+
+```yaml copy
+- uses: actions/cache@v3
+  with:
+    path: |
+      ./dist/images
+      ./dist/videos
+    key: ${{ runner.os }}-assets-${{ hashFiles('**/minomax.config.json') }}
+```
+
+## **GitLab CI Pipelines**
+
+### **1. Basic GitLab CI Pipeline**
+
+_Full optimization pipeline_
+
+```yaml copy
+stages:
+  - optimize
+  - deploy
+
+minomax_optimize:
+  stage: optimize
+  image: node:20
+  script:
+    - npx minomax prod -f webp -i "temp/**/*"
+  artifacts:
+    paths:
+      - dist/
+```
+
+### **2. GitLab CI Parallel Jobs**
+
+_Split optimization tasks_
+
+```yaml copy
+optimize_images:
+  stage: optimize
+  script:
+    - npx minomax image -p "assets/**/*" -d public/images
+
+optimize_videos:
+  stage: optimize
+  script:
+    - npx minomax video -p "media/**/*.mp4" -c mav1
+
+minify_docs:
+  stage: optimize
+  needs: ["optimize_images", "optimize_videos"]
+  script:
+    - npx minomax minify -p "src/**/*.{js,css,html}"
+```
+
+### **3. GitLab CI Variables Integration**
+
+_Environment-specific configurations_
+
+```yaml copy
+variables:
+  IMAGE_FORMAT: "webp"
+  VIDEO_CODEC: "mx265"
+
+prod_optimize:
+  script:
+    - npx minomax prod -f $IMAGE_FORMAT -c $VIDEO_CODEC
+```
+
+## **Advanced Use Cases**
+
+### **1. GitHub Actions + Image Sets Generation**
+
+_Responsive images in deployment_
+
+```yaml copy
+- name: Generate responsive sets
+  run: npx minomax genset -p "src/**/*.html" -d ./public/img
+
+- name: Deploy to Netlify
+  uses: netlify/actions/cli@v1
+  with:
+    args: deploy --dir=public
+```
+
+### **2. GitLab CI + Security Hardening**
+
+_Read-only container optimization_
+
+```yaml copy
+prod_build:
+  container:
+    image: alpine:latest
+    options: --read-only
+  script:
+    - npx minomax prod -i "**/secret/*"
+```
+
+### **3. GitHub Actions + Init Command**
+
+_Dynamic config generation_
+
+```yaml copy
+- name: Initialize Config
+  run: |
+    npx minomax init
+    sed -i 's/"quality": 75/"quality": 85/' minomax.config.json
+```
+
+## **Platform-Specific Best Practices**
+
+### **GitHub Actions Pro Tips**
+
+- Use `actions/cache` for node_modules and optimized assets
+- Leverage matrix jobs for multi-format testing
+- Integrate with GitHub Pages deployment:
+
+```yaml copy
+- name: Deploy to GitHub Pages
+  uses: peaceiris/actions-gh-pages@v3
+  with:
+    publish_dir: ./dist
+```
+
+### **GitLab CI Pro Tips**
+
+- Use `artifacts:expire_in` for temporary asset storage
+- Configure parallel jobs for different asset types
+- Integrate with GitLab Pages:
+
+```yaml copy
+pages:
+  stage: deploy
+  script:
+    - npx minomax prod -d public
+  artifacts:
+    paths:
+      - public
+```
+
+<br />
+<br />
+<br />
+<br />
+<strong>Keywords:</strong>
+<ul className="keywords">
+  <li>GitHub Actions Automation</li>
+  <li>GitLab CI/CD Pipelines</li>
+  <li>CI/CD Optimization Workflows</li>
+  <li>Parallel Job Execution</li>
+  <li>Asset Caching Strategies</li>
+  <li>Platform-Specific Deployment</li>
+</ul>

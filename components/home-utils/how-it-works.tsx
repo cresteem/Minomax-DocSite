@@ -106,7 +106,10 @@ export default function HowToGetStarted() {
                 <p>
                   Leverage Minomax’s CLI or API to integrate optimization into
                   your CI/CD pipeline for continuous improvement.{" "}
-                  <a href="{pending}" className="link">
+                  <a
+                    href="/docs/github-action-and-gitlab-ci-cd"
+                    className="link"
+                  >
                     Explore CI/CD <FaArrowCircleRight className="inline" />
                   </a>
                 </p>
