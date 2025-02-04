@@ -1,12 +1,16 @@
 export default function InputAndCopy({
+  className = "",
   source,
   successCallback,
 }: {
+  className?: string;
   source: string;
   successCallback: () => void;
 }) {
   return (
-    <div className="inline-flex gap-x-6 items-center rounded-full p-1 pr-6 border text-sm font-medium duration-150 hover:bg-white">
+    <div
+      className={`flex gap-x-6 items-center rounded-full p-1 pr-6 border text-sm font-medium duration-150 hover:bg-white ${className}`}
+    >
       <div
         onClick={() => {
           navigator.clipboard
@@ -22,7 +26,7 @@ export default function InputAndCopy({
       </div>
       <input
         disabled
-        className="w-[14rem] font-normal tracking-wider placeholder:text-black bg-white cursor-text"
+        className="flex w-full font-normal tracking-wider placeholder:text-black bg-white cursor-text"
         placeholder={source}
       />
     </div>

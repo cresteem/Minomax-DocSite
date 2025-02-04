@@ -2,9 +2,10 @@ import InputAndCopy from "../utils/input-and-copy";
 
 export default function Hero() {
   return (
-    <section className="py-[5%] xl:py-14 mt-6 sm:mt-0 w-[100%] relative overflow-hidden max-w-screen-2xl mx-auto">
-      <div className="flex-none space-y-5 max-w-xl pl-10 pt-5 ml-5">
+    <section className="py-[5%] xl:py-14 mt-6 sm:mt-0 w-[100%] max-w-screen-xl mx-auto flex flex-col lg:flex-row wrap px-4 sm:px-0">
+      <div className="flex-none space-y-5 max-w-xl sm:pl-10 pt-5 sm:ml-5 lg:pt-[2rem]">
         <InputAndCopy
+          className="w-[95%] sm:w-[25rem]"
           source="npm install @cresteem/minomax"
           successCallback={() => {
             alert("Now paste it on terminal: ctrl + v");
@@ -65,17 +66,11 @@ export default function Hero() {
           </a>
         </div>
       </div>
-      <div className="pb-[10rem]">
-        <div id="snake">
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
+      <div className="relative w-full h-[18rem] flex justify-center align-center mx-auto py-10 mt-[6rem] sm:mb-[5rem]">
+        <div
+          id="snake"
+          className="h-[12rem] sm:h-[15rem] w-[15rem] p-[2em] absolute -right-[2.8rem] sm:right-[10rem] lg:right-0 lg:top-0"
+        >
           <div className="cell"></div>
           <div className="cell"></div>
           <div className="cell"></div>

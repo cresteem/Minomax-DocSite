@@ -37,7 +37,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <p className="leading-relaxed mt-2 text-[15px] text-justify">
+          <p className="leading-relaxed mt-2 text-[15px] text-justify px-4 sm:px-0">
             Minomax is a versatile and powerful optimization tool designed to
             elevate the performance of your web projects. Whether you're a
             developer focused on improving load times or a business committed to

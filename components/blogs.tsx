@@ -9,7 +9,7 @@ export default function Blogs() {
   ]; */
 
   return (
-    <section className="mt-12 mb-[9%] mx-auto px-4 max-w-screen-lg md:px-8 leading-loose">
+    <section className="mt-12 mb-[9%] mx-auto px-6 max-w-screen-lg md:px-8 leading-loose">
       <div className="max-w-lg">
         <h1 className="text-3xl text-gray-800 font-semibold">
           Stay Ahead in Web Optimization with Minomax

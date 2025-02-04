@@ -1,11 +1,4 @@
 #snake {
-  height: 15em;
-  right: 0%;
-  top: 10%;
-  margin-top: 3.3rem;
-  padding: 3em;
-  position: absolute;
-  width: 15em;
   -webkit-transform: rotateX(45deg) rotateZ(45deg);
   transform: rotateX(45deg) rotateZ(45deg);
   -webkit-transform-style: preserve-3d;
@@ -82,11 +75,20 @@
   }
 }
 /* Loop to assign animation delays, and vertical position individually */
-@for $i from 1 through 90 {
+@for $i from 1 through 33 {
   .cell:nth-child(#{$i}) {
     -webkit-transform: rotateY($i * 4deg);
     -webkit-animation: wave 1.8s ($i * 0.05s) ease-in-out infinite;
     transform: rotateY($i * 4deg);
     animation: wave 1.8s ($i * 0.05s) ease-in-out infinite;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  /* hide some cell */
+  @for $i from 25 through 33 {
+    .cell:nth-child(#{$i}) {
+      display: none;
+    }
   }
 }

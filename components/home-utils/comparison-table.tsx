@@ -1,13 +1,13 @@
 export default function ComparisonTable() {
   return (
     <section className="py-5 mt-5 leading-loose tracking-wide">
-      <div className="max-w-screen-xl mx-auto px-4 text-gray-600 md:px-8">
+      <div className="max-w-screen-xl mx-auto text-gray-600 md:px-8">
         <div className="relative z-10 max-w-2xl mx-auto sm:text-center">
           <h3 className="text-gray-800 text-3xl font-bold sm:text-4xl text-center">
             Why Every <span className="text-primary">Website</span> Needs{" "}
             <span className="text-primary">Minomax</span>?
           </h3>
-          <p className="mt-3 text-justify leading-loose">
+          <p className="mt-3 text-justify leading-loose px-2 sm:px-0">
             Every website can benefit from Minomax by automating critical web
             optimization tasks. It compresses images, videos, and web documents
             (like CSS, JS, HTML), transforming and optimizing them for better

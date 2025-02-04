@@ -2,7 +2,7 @@ import SponsorButton from "./utils/sponsor-button";
 
 export default function Sponsors() {
   return (
-    <section className="flex flex-col justify-center items-center leading-loose pb-[8%]">
+    <section className="flex flex-col justify-center items-center leading-loose pb-[8%] px-6 sm:px-0">
       <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-10 flex flex-col justify-center items-center">
         <div className="max-w-xl">
           <h3 className="text-gray-800 text-3xl font-semibold sm:text-4xl text-center">

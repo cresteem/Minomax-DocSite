@@ -4,7 +4,7 @@ import Support from "./about-utils/support";
 
 export default function About() {
   return (
-    <section className="flex flex-col justify-center items-center leading-loose pb-[8%]">
+    <section className="flex flex-col justify-center items-center leading-loose pb-[8%] px-6 sm:px-0">
       <Credit />
       <Origin />
       <Support />

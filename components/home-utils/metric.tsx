@@ -82,7 +82,7 @@ export default function Metric() {
 
   return (
     <section className="flex-col flex">
-      <h2 className="mx-auto font-bold text-4xl py-5 my-5">
+      <h2 className="mx-auto font-bold text-4xl py-5 my-5 text-center">
         <span className="bg-gradient-to-r from-primary/[65%] to-primary bg-clip-text text-transparent">
           Real Results, Tested and Proven:
         </span>{" "}
@@ -90,10 +90,13 @@ export default function Metric() {
       </h2>
       <div
         ref={statContainerRef}
-        className="flex flex-wrap justify-start items-center max-w-screen-lg mx-auto gap-y-10 py-10"
+        className="flex flex-col md:flex-row flex-wrap items-center max-w-screen-xl mx-auto gap-10 py-10 xl:px-20 mx-auto"
       >
         {currentStats.map((metric, idx) => (
-          <div className="flex justify-start items-center w-[50%]" key={idx}>
+          <div
+            className="flex flex-col xl:flex-row items-center w-[95%] sm:w-[70%] xl:w-[45%] gap-5 mx-auto xl:mx-0"
+            key={idx}
+          >
             <RingProgress
               transitionDuration={2000}
               sections={[{ value: metric.percent, color: metric.color }]}
@@ -103,15 +106,17 @@ export default function Metric() {
                 </Text>
               }
             />
-            <p className="text-lg tracking-wider px-5">{metric.text}</p>
+            <p className="text-lg tracking-wider text-center xl:text-start sm:px-5">
+              {metric.text}
+            </p>
           </div>
         ))}
-        <div className="px-10 mx-5">
+        <div className="flex justify-center xl:justify-start items-center w-[95%] sm:w-[70%] xl:w-[45%] mx-auto xl:ml-10">
           {" "}
           <a
             href="https://github.com/cresteem/Minomax-Demo"
             target="_blank"
-            className="flex justify-center items-center gap-x-2 underline underline-offset-4 text-primary text-lg"
+            className="flex items-center gap-x-2 underline underline-offset-4 text-primary text-lg"
           >
             Explore Demo and reports <FaArrowCircleRight className="" />
           </a>
